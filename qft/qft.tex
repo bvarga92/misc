@@ -1,0 +1,1118 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{t1enc}
+\usepackage[latin2]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage[thmmarks]{ntheorem}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{lastpage}
+\usepackage{anysize}
+\usepackage[magyar]{babel}
+\usepackage{sectsty}
+\usepackage{setspace}
+\usepackage[hang]{caption}
+\usepackage{hyperref}
+\usepackage{indentfirst}
+\usepackage[bottom]{footmisc}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{epstopdf}
+\usepackage{mathtools}
+\usepackage{pdflscape}
+\usepackage{tikz}
+
+%--------------------------------------------------------------------------------------
+% Page layout setup
+%--------------------------------------------------------------------------------------
+
+\pagestyle{plain}
+\setlength{\parindent}{12pt}
+\setlength{\parskip}{0pt}
+\marginsize{25mm}{25mm}{15mm}{15mm} % anysize package
+\setcounter{secnumdepth}{0}
+\sectionfont{\large\upshape\bfseries}
+\setcounter{secnumdepth}{2}
+\singlespacing
+\frenchspacing
+
+%--------------------------------------------------------------------------------------
+%	Setup hyperref package
+%--------------------------------------------------------------------------------------
+\hypersetup{
+    bookmarks=false,            % show bookmarks bar?
+    unicode=false,             % non-Latin characters in Acrobat’s bookmarks
+    pdftitle={QFT},        % title
+    pdfauthor={Varga Balázs},    % author
+    pdfsubject={QFT}, % subject of the document
+    pdfcreator={Notepad},   % creator of the document
+    pdfproducer={PDFLaTex},    % producer of the document
+    pdfkeywords={QFT kvantum RSA},    % list of keywords
+    pdfnewwindow=true,         % links in new window
+    colorlinks=true,           % false: boxed links; true: colored links
+    linkcolor=black,           % color of internal links
+    citecolor=black,           % color of links to bibliography
+    filecolor=black,           % color of file links
+    urlcolor=black             % color of external links
+}
+
+%--------------------------------------------------------------------------------------
+% Set up listings
+%--------------------------------------------------------------------------------------
+
+\lstset{
+	backgroundcolor=\color[rgb]{0.95,0.95,0.95},
+	basicstyle=\scriptsize\ttfamily,
+	breakatwhitespace=false,
+	breaklines=true,
+	frame=single,
+	rulecolor=\color[rgb]{0,0,0},
+	keepspaces=true,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=2,
+	aboveskip=3pt,
+	belowskip=3pt,
+	columns=fixed,
+	numbers=left,
+	numbersep=5pt,
+	numberstyle=\tiny\color[rgb]{0.5,0.5,0.5},
+	stepnumber=1
+}
+
+\lstdefinestyle{MATLAB_CODE}{
+	language=Matlab,
+	keywordstyle=\color[rgb]{0,0,1},
+	commentstyle=\color[rgb]{0,0.6,0},
+	stringstyle=\color[rgb]{0.58,0,0.82},
+	deletekeywords={},
+	morekeywords={nchoosek}
+}
+
+%--------------------------------------------------------------------------------------
+%	Some new commands and declarations
+%--------------------------------------------------------------------------------------
+\newcommand{\code}[1]{{\upshape\ttfamily\scriptsize\indent #1}}
+
+% define references
+\newcommand{\figref}[1]{\ref{fig:#1}.}
+\renewcommand{\eqref}[1]{(\ref{eq:#1})}
+\newcommand{\listref}[1]{\ref{listing:#1}.}
+\newcommand{\sectref}[1]{\ref{sect:#1}}
+\newcommand{\tabref}[1]{\ref{tab:#1}.}
+
+\DeclareMathOperator{\sign}{sgn}
+\DeclareMathOperator{\lnko}{lnko}
+\DeclareMathOperator{\rot}{rot}
+\DeclareMathOperator{\Ord}{O}
+\DeclareMathSymbol{@}{\mathord}{letters}{"3B} %vesszo
+
+\DeclarePairedDelimiter\bra{\langle}{\rvert}
+\DeclarePairedDelimiter\ket{\lvert}{\rangle}
+\DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1 \delimsize\vert #2}
+
+\definecolor{lightgray}{rgb}{0.95,0.95,0.95}
+
+\sisetup{output-decimal-marker={,}}
+
+\usetikzlibrary{backgrounds,fit,decorations.pathreplacing,calc}
+
+%--------------------------------------------------------------------------------------
+%	Setup captions
+%--------------------------------------------------------------------------------------
+\captionsetup[figure]{
+%labelsep=none,
+%font={footnotesize,it},
+%justification=justified,
+width=.75\textwidth,
+aboveskip=10pt}
+
+\renewcommand{\captionlabelfont}{\small\bf}
+\renewcommand{\captionfont}{\footnotesize\it}
+
+%------------------------------------------------------ cimoldal -----------------------------------------------------------------
+
+\begin{document}
+\singlespacing
+
+\begin{titlepage}
+\begin{center}
+\includegraphics[width=60mm,keepaspectratio]{abrak/bmelogo.png}\\
+\vspace{0.3cm}
+\textbf{Budapesti Mûszaki és Gazdaságtudományi Egyetem}\\
+\textmd{Villamosmérnöki és Informatikai Kar}\\
+\textmd{Hálózati Rendszerek és Szolgáltatások Tanszék}\\[5cm]
+
+\vspace{0.4cm}
+{\huge \bfseries A kvantum Fourier-transzformáció és\\[5mm]alkalmazása}\\[4cm]
+
+\Large Készítette:\\
+\textsc{\Large Varga Balázs}
+
+\vfill
+{\large 2015. december 9.}
+\end{center}
+\end{titlepage}
+
+\pagenumbering{arabic}
+\onehalfspacing
+
+\tableofcontents\clearpage
+
+%--------------------------------------------- section0 ---------------------------------------------------------
+
+\section*{Kivonat}
+\addcontentsline{toc}{section}{Kivonat}
+
+Dolgozatom célja a kvantum Fourier-transzformáció mûködésének és lehetséges alkalmazásainak részletes bemutatása, különös tekintettel napjaink egyik legelterjedtebb nyilvános kulcsú titkosítási eljárása, a Rivest--Shamir--Adleman-algoritmus (RSA) feltörésére.
+
+Az elsõ fejezetben röviden összefoglalom a klasszikus Fourier-transzformáció folytonos és diszkrét idejû változatának tulajdonságait, majd ebbõl kiindulva a második fejezetben bevezetem a kvantum Fourier-transzformáció fogalmát, és részletesen bemutatom a transzformációt megvalósító kvantumáramkör tervezésének lépéseit. Az algoritmus mûködõképességét számítógépes szimulációval is illusztrálom.
+
+A harmadik fejezetben bemutatom a Fourier-transzformációra épülõ egyik legnagyobb jelentõségû kvantumáramkör, a fázisbecslõ ideális és valós körülmények közötti mûködését, valamint a megvalósítása során felmerülõ mérnöki feladatokat.
+
+A negyedik fejezetben az RSA-kód feltörésének lehetõségeivel foglalkozom. Röviden összefoglalom az RSA-eljárás mûködését, valamint klasszikus módszerekkel történõ feltörésének lehetõségeit és matematikai akadályait, majd ezeket számítási példákkal is illusztrálom. Végül megmutatom, hogy egy kvantumszámítógépen implementált speciális fázisbecslõ eljárás, a Shor-algoritmus segítségével a feltörés nem ütközik elvi akadályokba.
+
+\clearpage
+
+%--------------------------------------------- section1 ---------------------------------------------------------
+
+\section{Klasszikus Fourier-transzformáció}
+
+A 18. században a kor három jeles matematikusa, d'Alembert, Bernoulli és Euler a megpengetett húr differenciálegyenletének megoldását kapták meg trigonometrikus sor alakjában, ám a megoldás helyességét nem mindannyian fogadták el. Eredményeiket azonban Jean-Baptiste Joseph Fourier francia matematikus és fizikus sikerrel használta fel hõvezetési problémák analitikus megoldása során, és a ma Fourier-analízisként ismert matematikai módszer alapjainak lefektetésést is az õ 1822-ben publikált értekezésének tulajdonítják.
+
+\subsection{Fourier-transzformáció folytonos idõben}
+Az $x(t)$ abszolút integrálható függvény Fourier-transzformáltját (spektrumát) definiáljuk\footnote{Valójában több definíció is létezik. A legtöbb szakirodalom a kitevõk elõjelét fordítva adja meg, és a kifejezésekben konstans szorzók is szerepelhetnek. A jelen dokumentumban használt definíciók és jelölések \acite{qcc} irodalomban használtakkal konzisztensek. Megjegyzem azonban, hogy amíg ez a definíció a kvantuminformatika területén tipikusnak tekinthetõ, addig például a digitális jelfeldolgozás szakemberei általában más definícióhoz ragaszkodnak.} a következõképpen:
+\begin{equation*}
+	X(f)=\int\limits_{-\infty}^{\infty} \! x(t) e^{j 2 \pi f t} \, dt
+\end{equation*}
+Az inverz transzformáció pedig:
+\begin{equation*}
+	x(t)=\int\limits_{-\infty}^{\infty} \! X(f) e^{-j 2 \pi f t} \, df
+\end{equation*}
+
+A folytonos Fourier-transzformáció a matematika és az alkalmazott tudományok számos területén használatos: leegyszerûsíti bizonyos differenciálegyenletek megoldását (és ezáltal a lineáris rendszerek analízisét), segítségével számítható egy valószínûségi eloszlás karakterisztikus függvénye, a kvantummechanikában a Fourier-transzformáció teremti meg a kapcsolatot egy részecske impulzusára és helyére vonatkozó hullámfüggvények között, valamint optikai lencsék képalkotása is vizsgálható Fourier-transzformációval. Mindazonáltal a kvantuminformatikai algoritmusok szempontjából a Fourier-transzformáció alábbiakban tárgyalt, diszkrét idejû változata (DFT) a nagyobb jelentõségû.
+
+\subsection{Diszkrét Fourier-transzformáció}
+
+Az $N$ elemû $\mathbf{x}$ vektor diszkrét Fourier-transzformáltja az $\mathbf{y}$ vektor, ha
+\begin{equation*}
+	y_k = \frac{1}{\sqrt{N}} \sum\limits_{i=0}^{N-1} x_i e^{j \frac{2\pi}{N} i k}.
+\end{equation*}
+
+\clearpage
+
+\noindent Vezessük be az $\omega=e^{j \frac{2\pi}{N}}$ jelölést az $N$-edik komplex egységgyökre! Ekkor az $\mathbf{F} \mathbf{x}=\mathbf{y}$ transzformáció operátorának mátrixa az alábbi formát ölti:
+\begin{equation*}
+	\mathbf{F}=\frac{1}{\sqrt{N}}\begin{bmatrix}
+		1 & 1 & 1 & 1 & \dots & 1\\
+		1 & \omega & \omega^2 & \omega^3 & \cdots & \omega^{N-1}\\
+		1 & \omega^2 & \omega^4 & \omega^6 & \cdots & \omega^{2(N-1)}\\
+		1 & \omega^3 & \omega^6 & \omega^9 & \cdots & \omega^{3(N-1)}\\
+		\vdots & \vdots & \vdots & \vdots & & \vdots\\
+		1 & \omega^{N-1} & \omega^{2(N-1)} & \omega^{3(N-1)} & \cdots & \omega^{(N-1)(N-1)}
+	\end{bmatrix}
+\end{equation*}
+Könnyen ellenõrizhetõ, hogy az $\mathbf{F}$ operátor unitér, azaz inverze megegyezik az adjungáltjával: $\mathbf{x}=\mathbf{F}^{-1}\mathbf{y}=\mathbf{F}^\dagger \mathbf{y}$. Az inverz transzformáció (IDFT) képlete tehát:
+\begin{equation*}
+	x_i = \frac{1}{\sqrt{N}} \sum\limits_{k=0}^{N-1} y_k e^{- j \frac{2\pi}{N} i k}.
+\end{equation*}
+
+Mivel bizonyos feltételek betartása esetén a diszkrét Fourier-transzformált a folytonos spektrum mintavételes közelítését adja, a DFT jelentõsége a mérnöki gyakorlatban óriási, a digitális jel- és képfeldolgozás minden területén megjelenik. Számunkra azonban a transzformáció unitér volta a legfontosabb -- ez ugyanis azt is jelenti, hogy nincs elvi akadálya a DFT kvantumáramkörrel történõ megvalósításának. A következõ fejezetben erre példát is láthatunk.
+
+Érdekesség, hogy bár logikailag nem feltétlenül így gondolnánk, de a ma diszkrét Fourier-transzformációként emlegetett eljárás idõben elõbb született meg, mint a folytonos Fourier-transzformáció. Sõt, Gauss 1805-ben csillagászati számításai során olyan módszert alkalmazott, amely nagyon hasonlított a DFT gyors elvégzésére (FFT) napjainkban leginkább elterjedt Cooley--Tukey-algoritmushoz.
+
+\clearpage
+
+%--------------------------------------------- section2 ---------------------------------------------------------
+
+\section{Kvantum Fourier-transzformáció}
+
+\subsection{A QFT bevezetése és megvalósítása kvantumáramkörrel}
+
+Legyen egy kvantummechanikai rendszer állapota $\ket{\varphi}$, amely a $\ket{i}$, $i=0 \dots N-1$ bázisállapotok szuperpozíciójaként áll elõ:
+\begin{equation*}
+	\ket{\varphi} = \sum\limits_{i=0}^{N-1} \varphi_i \ket{i}
+\end{equation*}
+A $\ket{\varphi}$ szuperponált állapot -- ebben a természetes bázisban -- egyértelmûen megadható a $\varphi_i$ komplex valószínûségi amplitúdók vektoraként. Vegyük ezen vektor DFT-jét:
+\begin{equation*}
+	\psi_k = \frac{1}{\sqrt{N}} \sum\limits_{i=0}^{N-1} \varphi_i e^{j \frac{2\pi}{N} i k}
+\end{equation*}
+Az így kapott együtthatókból mint valószínûségi amplitúdókból konstruált $\ket{\psi}$ kvantumállapotot nevezzük a $\ket{\varphi}$ állapot Fourier-transzformáltjának (QFT-jének):
+\begin{equation*}
+	\mathbf{F} \ket{\varphi} = \ket{\psi} = \sum\limits_{k=0}^{N-1} \psi_k \ket{k} = \frac{1}{\sqrt{N}} \sum\limits_{k=0}^{N-1} \sum\limits_{i=0}^{N-1} \varphi_i e^{j \frac{2\pi}{N} i k} \ket{k}
+\end{equation*}
+Az $\mathbf{F}$ operátor unitér, azaz $\ket{\varphi}=\mathbf{F}^{-1}\ket{\psi}=\mathbf{F}^\dagger\ket{\psi}$. Ez alapján az inverz kvantum Fourier-transzformáció (IQFT) a klasszikus IDFT-hez hasonló módon számítható:
+\begin{equation*}
+	\varphi_i = \frac{1}{\sqrt{N}} \sum\limits_{k=0}^{N-1} \psi_k e^{-j \frac{2\pi}{N} i k}
+\end{equation*}
+
+A továbbiakban a QFT-t elemi kapukból álló kvantumáramkörrel szeretnénk realizálni\footnote{Az itt bemutatott QFT-realizáció R. Griffiths és C-S. Niu, illetve R. Cleve, A. Ekert, C. Macchiavello és M. Mosca nevéhez fûzõdik. A Fourier-transzformáció kvantumos kiszámításáról szóló elsõ publikációk 1994-ben jelentek meg.}. Ehhez fel kell tennünk, hogy a bemeneti $\ket{\varphi}$ állapot egy $n$ qubites kvantumregiszter, azaz $N=2^n$. Kihasználjuk továbbá a Hilbert-tér linearitását: elegendõ olyan kvantumáramkört terveznünk, amely egy $\ket{i}$ bázisállapot transzformáltját állítja elõ; ugyanez az áramkör a bázisállapotok tetszõleges lineáris kombinációja -- azaz tetszõleges szuperponált $\ket{\varphi}$ állapot -- esetén is mûködni fog. A $\ket{i}$ bázisállapot QFT-je:
+\begin{equation*}
+	\mathbf{F} \ket{i} = \frac{1}{\sqrt{N}} \sum\limits_{k=0}^{N-1} e^{j \frac{2\pi}{N} i k} \ket{k} = \frac{1}{\sqrt{2^n}} \sum\limits_{k=0}^{2^n-1} \exp \left( j \frac{2\pi}{2^n} i \sum\limits_{l=1}^{n} k_l 2^{n-l} \right) \ket{k}
+\end{equation*}
+
+\clearpage
+
+\noindent Itt kihasználtuk, hogy a $k$ természetes szám bináris alakja\footnote{Felülhúzással jelölöm, hogy a $k_l$ számokat számjegyekként (most speciálisan bitekként), nem pedig egy szorzat tényezõiként kell olvasni.}: $k = \overline{k_1 k_2 \dots k_n}=k_1 2^{n-1} + k_2 2^{n-2} + \dots + k_n 2^0$, ahol $k_l \in \{0;1\}$. Hasonlóan, a $\ket{k}$ bázisállapot felírható $n$ kvantumbit tenzorszorzataként: $\ket{k} = \ket{k_1 k_2 \dots k_n} = \ket{k_1} \otimes \ket{k_2} \otimes \dots \otimes \ket{k_n}$, ahol $\ket{k_l} \in \{\ket{0};\ket{1}\}$.
+Ezek alapján:
+\begin{equation*}
+	\mathbf{F} \ket{i} = \frac{1}{\sqrt{2^n}} \sum\limits_{k=0}^{2^n-1} \prod\limits_{l=1}^{n} e^{j 2\pi i k_l 2^{-l}} \bigotimes\limits_{l=1}^{n} \ket{k_l} = \frac{1}{\sqrt{2^n}} \sum\limits_{k=0}^{2^n-1} \bigotimes\limits_{l=1}^{n} e^{j 2\pi i k_l 2^{-l}} \ket{k_l}
+\end{equation*}
+Csoportosítsuk át a kifejezést úgy, hogy szétválasztjuk azokat az eseteket, amikor $k_l=0$, illetve $k_l=1$:
+\begin{equation*}
+	\mathbf{F} \ket{i} = \frac{1}{\sqrt{2^n}} \bigotimes\limits_{l=1}^{n} \left( e^{j 2\pi i \cdot 0 \cdot 2^{-l}} \ket{0} + e^{j 2\pi i \cdot 1 \cdot 2^{-l}} \ket{1} \right) = \frac{1}{\sqrt{2^n}} \bigotimes\limits_{l=1}^{n} \left( \ket{0} + e^{j 2\pi i 2^{-l}} \ket{1} \right)
+\end{equation*}
+A tenzorszorzat egyes tényezõire vezessük be a $\ket{\mu_l}$ jelölést!
+\begin{equation*}
+	\ket{\mu_l} = \frac{1}{\sqrt{2}} \left( \ket{0} + e^{j 2\pi i 2^{-l}} \ket{1} \right) = \frac{1}{\sqrt{2}} \left( \ket{0} + e^{j 2\pi \overline{0@i_{n-l+1} \cdots i_{n-1} i_{n}}} \ket{1} \right)
+\end{equation*}
+Az átalakításnál azt használtuk ki, hogy az $i$ természetes szám bináris alakja $i = \overline{i_1 i_2 \dots i_n} = i_1 2^{n-1} + i_2 2^{n-2} + \dots + i_n 2^0 $, ahol $i_m \in \{0;1\}$ az $i$ szám $m$-edik bitje. Ennek a $2^l$-edrésze: $i 2^{-l}=\overline{i_1 i_2 \dots i_{n-l} \,@\, n_{n-l+1} \dots i_n}=\overline{i_1 i_2 \dots i_{n-l}} + \overline{0 @ n_{n-l+1} \dots i_n}$. Mivel ez a kifejezés a komplex exponenciális kitevõjében szerepel, az egészrész elhagyható -- az ugyanis az egységvektor egész számú fordulatát írja le a komplex síkon, a szöget csak a törtrész fogja megváltoztatni.
+
+A fenti megfontolásokkal megkaptuk a kvantum Fourier-transzformáció megvalósítás szempontjából érdekes, végsõ alakját:
+\begin{equation*}
+	\mathbf{F} \ket{i} = \ket{\mu_1} \otimes \ket{\mu_2} \otimes \dots \otimes \ket{\mu_n} =
+\end{equation*}
+\begin{equation*}
+	= \left( \frac{\ket{0} + e^{j 2\pi \overline{0@i_n}} \ket{1}}{\sqrt{2}} \right) \otimes \left( \frac{\ket{0} + e^{j 2\pi \overline{0@i_{n-1} i_n}} \ket{1}}{\sqrt{2}} \right) \otimes \dots \otimes \left( \frac{\ket{0} + e^{j 2\pi \overline{0@i_1 i_2 \cdots i_n}} \ket{1}}{\sqrt{2}} \right)
+\end{equation*}
+Ez a formula a qubitek szintjén definiálja a bemenet és a Fourier-transzformált közti kapcsolatot. Például az elsõ qubit:
+\begin{equation*}
+	\ket{\mu_1}=\begin{cases}
+		\frac{\ket{0}+\ket{1}}{\sqrt{2}}, & \text{ha $i_n=0$}\\
+		\frac{\ket{0}-\ket{1}}{\sqrt{2}}, & \text{ha $i_n=1$,}
+	\end{cases}
+\end{equation*}
+tehát kimenet MSB-je a bemenet LSB-jébõl egyetlen Hadamard-kapuval képezhetõ. Nézzük most $\ket{\mu_2}$-t! 
+\begin{equation*}
+	\ket{\mu_2}=\frac{1}{\sqrt{2}} \ket{0}+\frac{1}{\sqrt{2}} \ket{1} e^{j 2 \pi \overline{0@i_{n-1}}} \cdot \begin{cases}
+		1, & \text{ha $i_n=0$}\\
+		e^{j 2 \pi 2^{-2}}, & \text{ha $i_n=1$}
+	\end{cases}
+\end{equation*}
+Ez $i_n=0$ esetben ismét egy Hadamard-kapunak felel meg, azonban $i_n=1$ esetben szükség van egy $2\pi 2^{-2}$ szögû fáziskapura is. Vezessük be az $R_h$ vezérelt fáziskaput, amely úgy mûködik, hogy a vezérlõbemenet $\ket{0}$ volta esetén transzparens, míg $\ket{1}$ vezérlés esetén $2\pi2^{-h}$ szöggel forgatja el a bemenet $\ket{1}$-hez tartozó komplex valószínûségi amplitúdójának fázisát! Ezen operátor mátrixa a $\{ \ket{0};\ket{1} \}^{\otimes 2}$ természetes bázisban:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{m{6cm} @{\hskip 2cm} m{2cm}}
+	$\mathbf{R_h}=\begin{bmatrix}
+		1 & 0 & 0 & 0 \\
+		0 & 1 & 0 & 0 \\
+		0 & 0 & 1 & 0 \\
+		0 & 0 & 0 & e^{j 2 \pi 2^{-h}}
+	\end{bmatrix}$
+	&
+	\begin{tikzpicture}[thick]
+		\tikzstyle{gate}=[draw,fill=white,minimum size=1.5em]
+		\tikzstyle{control}=[draw,fill,shape=circle,minimum size=5pt,inner sep=0pt]
+		\tikzstyle{box}=[fill=blue!5,thick,draw=black,rounded corners=2mm]
+		\matrix[row sep=0.4cm, column sep=0.8cm](circuit){
+		% 1. SOR
+			\node(b1){}; &[-0.5cm]
+			\node[control](c11){}; &[-0.5cm]
+			\node(e1){}; \\
+		% 2. SOR
+			\node(b2){}; &
+			\node[gate](R21){$R_h$}; &
+			\node(e2){}; \\
+	    };
+		\begin{pgfonlayer}{background}
+			% DOBOZ
+			\node[box](background)[fit=(b1) (R21) (e2)]{};
+			% OSSZEKOTTETESEK
+			\draw[thick]
+				(b1)--(e1)
+				(b2)--(e2) (c11)--(R21);
+		\end{pgfonlayer}
+	\end{tikzpicture}
+\end{tabular}
+\end{table}
+
+Az így definiált operátor mint áramköri elem segítségével már megrajzolhatjuk a két qubites kvantum Fourier-transzformátor sémáját:
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[thick]
+		\tikzstyle{gate}=[draw,fill=white,minimum size=1.5em]
+		\tikzstyle{control}=[draw,fill,shape=circle,minimum size=5pt,inner sep=0pt]
+		\tikzstyle{box}=[fill=blue!5,thick,draw=black,rounded corners=2mm]
+		\matrix[row sep=0.4cm, column sep=0.8cm](circuit){
+		% 1. SOR
+			\node(b1){$\ket{i_1}$}; &[-0.5cm]
+			\node[gate](H11){$H$}; &
+			\node[gate](R12){$R_{2}$}; &
+			&
+			\node(e1){$\ket{\mu_2}$}; \\
+		% 2. SOR
+		    \node(b2){$\ket{i_2}$}; &
+			&
+			\node[control](c21){}; &
+			\node[gate](H21){$H$}; &
+			\node(e2){$\ket{\mu_{1}}$}; \\
+	    };
+		\begin{pgfonlayer}{background}
+			% DOBOZ
+			\node[box](background)[fit=(b1) (H21) (e2)]{};
+			% OSSZEKOTTETESEK
+			\draw[thick]
+				(b1)--(e1)
+				(b2)--(e2) (c21)--(R12);
+		\end{pgfonlayer}
+	\end{tikzpicture}
+	\caption{Kétbites QFT áramkör}
+	\label{fig:2qubites}
+\end{figure}
+Az általános, $n$ qubites bemenettel mûködõ QFT áramkör felépítése ugyanezen sémát követve rekurzívan megkapható az $n-1$ qubites változatból. A teljes áramkör rajza \aref{fig:teljes}. ábrán látható.
+
+A fentiekben konstruáltunk egy kvantumáramkört, amely elõállítja egy tetszõleges állapot QFT-jét. Van azonban egy nyilvánvaló hátránya: az algoritmus nem használható a hagyományos DFT gyorsabb kiszámítására, hiszen a Fourier-együtthatók komplex valószínûségi amplitúdókként jelennek meg a kimeneten, amelyeknek a fázisa makroszkopikusan mérhetõ jelentést nem hordoz. Ráadásul a számításigénnyel sem spóroltunk: a QFT $\Ord(n^2)$ komplexitású, míg a hagyományos FFT-nek csak $\Ord(n \log n)$ a lépésszáma\footnote{A kettõ között azonban van egy fontos különbség: a hagyományos információelméletben egy algoritmus számításigényén a végrehajtásához szükséges lépések számát értjük (amely arányos a futásidõvel), egy kvantumalgoritmus számításigénye pedig a kvantumáramkör felépítéséhez szükséges elemi kapuk számát jelenti.}. A késõbbiekben azonban látni fogjuk, hogy a QFT számos kvantumalgoritmus elengedhetetlen építõeleme.
+
+\begin{landscape}
+\null\vfill
+\begin{figure}[!ht]
+	\centering
+	\begin{tikzpicture}[thick]
+		\tikzstyle{gate}=[draw,fill=white,minimum size=1.5em]
+		\tikzstyle{control}=[draw,fill,shape=circle,minimum size=5pt,inner sep=0pt]
+		\tikzstyle{box}=[fill=blue!5,thick,draw=black,rounded corners=2mm]
+		\matrix[row sep=0.4cm, column sep=0.8cm](circuit){
+		% 1. SOR
+			\node(b1){$\ket{i_1}$}; &[-0.5cm]
+			\node[gate](H11){$H$}; &
+			\node[gate](R12){$R_2$}; &
+			\node(d11){\dots}; &
+			\node[gate](R13){$R_n$}; &[-0.3cm]
+			&
+			&
+			&
+			&
+			&
+			&
+			&
+			&
+			\node(e1){$\ket{\mu_n}$}; \\
+		% 2. SOR
+		    \node(b2){$\ket{i_2}$}; &
+			&
+			\node[control](c21){}; &
+			\node(d21){\dots}; &
+			&
+			\node[gate](H21){$H$}; &
+			\node(d22){\dots}; &
+			\node[gate](R22){$R_{n-2}$}; &
+			\node[gate](R23){$R_{n-1}$}; &
+			&
+			&
+			&
+			&
+			\node(e2){$\ket{\mu_{n-1}}$}; \\
+		% 3. SOR
+		    \node(b3){\vdots}; &
+			&
+			&
+			&
+			&
+			&
+			&
+			&
+			&
+			&
+			&
+			&
+			&
+			\node(e3){\vdots}; \\
+		% 4. SOR
+		    \node(b4){$\ket{i_{n-1}}$}; &
+			&
+			&
+			&
+			&
+			&
+			&
+			\node[control](c41){}; &
+			&
+			\node(d41){\dots}; &
+			\node[gate](H41){$H$}; &
+			\node[gate](R42){$R_2$}; &
+			&
+			\node(e4){$\ket{\mu_2}$}; \\
+		% 5. SOR
+		    \node(b5){$\ket{i_n}$}; &
+			&
+			&
+			&
+			\node[control](c51){}; &
+			&
+			&
+			&
+			\node[control](c52){}; &
+			&
+			\node(d51){\dots}; &
+			\node[control](c53){}; &
+			\node[gate](H51){$H$}; &
+			\node(e5){$\ket{\mu_1}$}; \\
+	    };
+		\begin{pgfonlayer}{background}
+			% DOBOZ
+			\node[box](background)[fit=(b1) (H51) (e5)]{};
+			% OSSZEKOTTETESEK
+			\draw[thick]
+				(b1)--(d11) (d11)--(e1)
+				(b2)--(d21) (d21)--(d22) (d22)--(e2) (R12)--(c21)
+				(b4)--(d41) (d41)--(e4) (c41)--(R22)
+				(b5)--(d51) (d51)--(e5) (c51)--(R13) (c52)--(R23) (c53)--(R42);
+		\end{pgfonlayer}
+	\end{tikzpicture}
+	\caption{A QFT teljes realizációja kvantumhálózattal}
+	\label{fig:teljes}
+\end{figure}
+\vfill\clearpage
+\end{landscape}
+
+\subsection{Az algoritmus mûködésének szimulációja}
+
+Az alábbiakban egy számítógépes szimulációt láthatunk a három qubites QFT algoritmus mûködésére. A szimuláció a QCircuit nevû szoftver használatával készült, amelyet a BME egykori hallgatója, Pereszlényi Attila készített diplomamunkája keretében 2005-ben. A program igen sokoldalú, számos kvantumkaput és -csatornát tartalmaz, így kiválóan alkalmas különbözõ algoritmusok és kommunikációs protokollok vizsgálatára.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=151.5mm,keepaspectratio]{abrak/qft3sim.png}
+	\caption{A szimulátorban megépített QFT áramkör}
+	\label{fig:qft3sim}
+\end{figure}
+
+A megépített hálózat megfelel az elõzõekben látott sémának. Az egyetlen új elem a SWAP kapu, amely csak kényelmi célokat szolgál: megfordítja a qubitek sorrendjét, hogy a kapott szimulációs eredmények jobban olvashatóak legyenek. A programban mátrixukkal definiálhatunk egyedi kapukat, a három qubites SWAP kapu esetében a megadandó $8 \! \times \! 8$-as mátrix az alábbi permutáló mátrix:
+\begin{equation*}
+	\mathbf{SWAP}=\begin{bmatrix}
+		1 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+		0 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\
+		0 & 0 & 1 & 0 & 0 & 0 & 0 & 0\\
+		0 & 0 & 0 & 0 & 0 & 0 & 1 & 0\\
+		0 & 1 & 0 & 0 & 0 & 0 & 0 & 0\\
+		0 & 0 & 0 & 0 & 0 & 1 & 0 & 0\\
+		0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\
+		0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\
+	\end{bmatrix}
+\end{equation*}
+A \emph{cutIn} és \emph{cutOut} megfigyelõpontok arra szolgálnak, hogy nyomon követhessük az egyes bemeneti és kimeneti qubitek állapotait. Természetesen ez csak szimulációs eszköz, makroszkopikusan az ilyen megfigyelés több akadályba is ütközne: egyrészt a komplex valószínûségi amplitúdókat nem is mérhetnénk meg, másrészt pedig bármilyen mérés befolyásolná a kvantumbitek állapotait.
+
+\clearpage
+
+Az áramkört a $\ket{\varphi_1}=0@8\cdot\ket{0}+0@6\cdot\ket{1}$, $\ket{\varphi_2}=0@6\cdot\ket{0}+0@8\cdot\ket{1}$ és $\ket{\varphi_3}=\ket{1}$ bemeneti állapotokkal inicializáltam, és a mûködés ellenõrzésére az alábbi egyszerû MATLAB szkriptet írtam:
+\vspace{5mm}
+\lstset{style=MATLAB_CODE}
+\begin{lstlisting}
+phi1=[0.8 ; 0.6];
+phi2=[0.6 ; 0.8];
+phi3=[0.0 ; 1.0];
+in=kron(kron(phi1,phi2),phi3) % Kronecker-féle tenzorszorzat
+out=1/sqrt(8)*conj(fft(in)) % az eltérõ definíciók miatt konjugálni kell!
+\end{lstlisting}
+\vspace{2mm}
+A szimuláció eredményét, valamint a MATLAB szkript futásának kimenetét az alábbi táblázat mutatja. Látható, hogy a QFT áramkör helyesen mûködik, sikerrel elõállította az elvárt eredményt.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c||c}
+	QCircuit & MATLAB\\
+	\hline
+	\hline
+	\begin{minipage}{6cm}
+		\begin{verbatim}
+
+		
+		Simulation results
+		==================
+
+		CUT WATCH
+		Name: cutIn
+		  000:[ 0.0000 + 0.0000i]
+		  001:[ 0.4800 + 0.0000i]
+		  010:[ 0.0000 + 0.0000i]
+		  011:[ 0.6400 + 0.0000i]
+		  100:[ 0.0000 + 0.0000i]
+		  101:[ 0.3600 + 0.0000i]
+		  110:[ 0.0000 + 0.0000i]
+		  111:[ 0.4800 + 0.0000i]
+
+		CUT WATCH
+		Name: cutOut
+		  000:[ 0.6930 + 0.0000i]
+		  001:[-0.0100 + 0.0700i]
+		  010:[ 0.0000 - 0.0990i]
+		  011:[ 0.0100 + 0.0700i]
+		  100:[-0.6930 + 0.0000i]
+		  101:[ 0.0100 - 0.0700i]
+		  110:[ 0.0000 + 0.0990i]
+		  111:[-0.0100 - 0.0700i]
+		\end{verbatim}
+		\end{minipage}
+		&
+		\begin{minipage}{6cm}
+		\begin{verbatim}
+		in =
+		         0
+		    0.4800
+		         0
+		    0.6400
+		         0
+		    0.3600
+		         0
+		    0.4800
+
+		out =
+		   0.6930          
+		  -0.0100 + 0.0700i
+		        0 - 0.0990i
+		   0.0100 + 0.0700i
+		  -0.6930          
+		   0.0100 - 0.0700i
+		        0 + 0.0990i
+		  -0.0100 - 0.0700i
+		\end{verbatim}
+		\end{minipage}
+	\end{tabular}
+\end{table}
+
+\clearpage
+
+%--------------------------------------------- section3 ---------------------------------------------------------
+
+\section{Kvantum-fázisbecslés}
+
+Ismeretes, hogy egy unitér mátrix minden sajátértéke rajta van a komplex egységkörön, vagyis egyetlen fázisszöggel jellemezhetõ. A fázisbecslés vagy sajátértékbecslés (QPE -- \emph{Quantum Phase Estimation}) feladata, hogy az $\mathbf{U}$ unitér transzformáció $\ket{u}$ sajátvektorához tartozó $e^{j\alpha_u}$ sajátértékének $\alpha_u$ fázisát elõállítsa. Ha a transzformáció mátrixa adott, akkor természetesen fölösleges a feladathoz kvantumszámítógépet építenünk, azonban a gyakorlatban arról van szó, hogy az $\mathbf{U}$ operátort egy kvantumáramkör valósítja meg, és valamilyen feltételektõl függõen értékeli ki, tehát mátrixát nem ismerjük elõre.
+
+Praktikus megfontolások miatt a fázist $\alpha_u=2 \pi \kappa_u$ alakban írjuk fel, és a $\kappa_u \in [0;1[$ számot keressük. Egyelõre feltételezzük, hogy $\kappa_u=\frac{i}{2^n}$ alakú, ahol $i \in \{0,1,\dots,2^n-1\}$. Az elõzõekben láttuk, hogy a $\ket{i}$ bázisállapot kvantum Fourier-transzformáltja:
+\begin{equation*}
+	\mathbf{F} \ket{i} = \frac{1}{\sqrt{N}} \sum\limits_{k=0}^{N-1} e^{j \frac{2\pi}{N} i k} \ket{k} = \frac{1}{\sqrt{2^n}} \sum\limits_{k=0}^{2^n-1} e^{j 2\pi \frac{i}{2^n} k} \ket{k} = \frac{1}{\sqrt{2^n}} \sum\limits_{k=0}^{2^n-1} e^{j 2\pi \kappa_u k} \ket{k}
+\end{equation*}
+Ha ezt az állapotot elõ tudnánk állítani, akkor egy IQFT végrehajtásával megkaphatnánk $\ket{i}$-t, amelybõl $\kappa_u$ számítható. Az elõállítandó állapot $l$-edik qubitje:
+\begin{equation*}
+	\ket{\mu_l} = \frac{\ket{0} + e^{j 2\pi i 2^{-l}} \ket{1}}{\sqrt{2}} = \frac{\ket{0} + e^{j 2\pi 2^{n-l} \kappa_u} \ket{1}}{\sqrt{2}}
+\end{equation*}
+A legalacsonyabb helyiértékû qubit (LSB):
+\begin{equation*}
+	\ket{\mu_n} = \frac{\ket{0} + e^{j 2\pi \kappa_u} \ket{1}}{\sqrt{2}}
+\end{equation*}
+Ezt az állapotot \aref{fig:qpe_reszlet}. ábrán látható kvantumáramkörrel generálhatjuk. A hálózat tartalmaz egy vezérelt $U$ kaput: ez úgy mûködik, hogy $\ket{0}$ vezérlõállapot esetén transzparens, $\ket{1}$ vezérlõállapot esetén pedig végrehajtja azt a $t$ qubites $\mathbf{U}$ transzformációt, amelynek a sajátértékét keressük.
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[thick]
+		\tikzstyle{gate}=[draw,fill=white,minimum size=1.5em]
+		\tikzstyle{control}=[draw,fill,shape=circle,minimum size=5pt,inner sep=0pt]
+		\tikzstyle{box}=[fill=blue!5,thick,draw=black,rounded corners=2mm]
+		\matrix[row sep=0.4cm, column sep=0.8cm](circuit){
+		% 1. SOR
+			\node(b1){$\ket{0}$}; &[-0.5cm]
+			\node[gate](H11){$H$}; &
+			\node[control](c11){}; &
+			&
+			\node(e1){$\ket{\mu_n}$}; \\
+		% 2. SOR
+		    \node(b2){$\ket{u}$}; &
+			\node{\textbf{/}};
+			\node[shift=({-1mm,3mm})]{$t$};&
+			\node[gate](U21){$U$}; &
+			&
+			\node(e2){$\ket{u}$}; \\
+	    };
+		\begin{pgfonlayer}{background}
+			% DOBOZ
+			\node[box](background)[fit=(b1) (U21) (e2)]{};
+			% OSSZEKOTTETESEK
+			\draw[thick]
+				(b1)--(e1)
+				(c11)--(U21);
+			\draw[ultra thick]
+				(b2)--(e2);
+		\end{pgfonlayer}
+	\end{tikzpicture}
+	\caption{A legalsó qubit elõállítása}
+	\label{fig:qpe_reszlet}
+\end{figure}
+
+Az áramkör mûködése nem triviális -- ahogy az lenni szokott, amikor egy vezérelt kapu vezérlõbemenetére szuperponált állapotot teszünk\footnote{Ilyenkor gyakran találkozunk érdekes jelenségekkel. Szuperpozícióval vezérelt CNOT kapuval például összefonódott Bell-párokat állíthatunk elõ, sõt teleportálhatunk is.}. A bemenet a $\ket{0}\otimes\ket{u}$ állapot, amelynek elsõ qubitjébõl a Hadamard-kapu a $\ket{+}$ állapotot képzi:
+\begin{equation*}
+	\left( \, \mathbf{H}\ket{0} \, \right)\otimes\ket{u}=\frac{\ket{0}+\ket{1}}{\sqrt{2}}\otimes\ket{u}=\frac{\ket{0}\ket{u}+\ket{1}\ket{u}}{\sqrt{2}},
+\end{equation*} ez jut a vezérelt $U$ kapu bemenetére. A linearitás miatt a kapu mûködését az összeg két tagjára külön-külön vizsgálhatjuk. Amikor a felsõ qubit $\ket{0}$, akkor az $U$ kapu ki van kapcsolva, amikor pedig $\ket{1}$, akkor az $U$ kapu mûködik, és mivel a bemenetén a $\ket{u}$ sajátállapot van, $e^{j 2 \pi \kappa_u}$-val való szorzást valósít meg:
+\begin{equation*}
+	\mathbf{U}\left(\frac{\ket{0}\ket{u}+\ket{1}\ket{u}}{\sqrt{2}}\right)=\frac{\ket{0}\ket{u}+\ket{1}\otimes\left( \,\mathbf{U}\ket{u} \,\right)}{\sqrt{2}}=\frac{\ket{0}\ket{u}+\ket{1}\otimes\left(e^{j 2 \pi \kappa_u}\ket{u}\right)}{\sqrt{2}}=
+\end{equation*}
+\begin{equation*}
+	=\frac{\ket{0}+e^{j 2 \pi \kappa_u}\ket{1}}{\sqrt{2}}\otimes\ket{u} = \ket{\mu_n}\ket{u},
+\end{equation*}
+tehát a kimeneten valóban a kívánt állapot jelenik meg.
+
+A többi $\ket{\mu_l}$ állapot elõállítása hasonló módon történik, az egyetlen különbség, hogy az $\mathbf{U}$ operátort többször kell mûködtetni:
+\begin{equation*}
+	\ket{\mu_l} = \frac{\ket{0} + e^{j 2\pi 2^{n-l} \kappa_u} \ket{1}}{\sqrt{2}} = \frac{\ket{0} + \left(e^{j 2\pi \kappa_u}\right)^{2^{n-l}} \ket{1}}{\sqrt{2}}
+\end{equation*}
+\begin{equation*}
+	\mathbf{U}^{2^{n-l}}\ket{u}=\underbrace{e^{j 2\pi \kappa_u}e^{j 2\pi \kappa_u} \dots e^{j 2\pi \kappa_u}}_\text{$2^{n-l}$ tényezõ} \ket{u}=\left(e^{j 2\pi \kappa_u}\right)^{2^{n-l}}\ket{u}
+\end{equation*}
+Ezekkel a megfontolásokkal már felépíthetjük az összes $\ket{\mu_l}$ kvantumbitet elõállító, általános áramkört, amely \aref{fig:qpe_teljes}. ábrán látható.
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[thick]
+		\tikzstyle{gate}=[draw,fill=white,minimum size=1.5em]
+		\tikzstyle{control}=[draw,fill,shape=circle,minimum size=5pt,inner sep=0pt]
+		\tikzstyle{box}=[fill=blue!5,thick,draw=black,rounded corners=2mm]
+		\matrix[row sep=0.4cm, column sep=0.8cm](circuit){
+		% 1. SOR
+			\node(b1){$\ket{0}$}; &[-0.5cm]
+			\node[gate](H11){$H$}; &
+			&
+			&
+			&
+			\node(d1){\dots}; &
+			\node[control](c11){}; &
+			\node(o1){};
+			\node(mu1)[shift=({-9mm,3mm})]{$\ket{\mu_n}$}; &
+			\node(e1)[gate]{$\nearrow$}; \\
+		% 2. SOR
+			\node(b2){\vdots}; &[-0.5cm]
+			&
+			&
+			&
+			&
+			&
+			&
+			&
+			\node(e2){}; \\
+		% 3. SOR
+			\node(b3){$\ket{0}$}; &[-0.5cm]
+			\node[gate](H31){$H$}; &
+			&
+			&
+			\node[control](c31){}; &
+			\node(d3){\dots}; &
+			&
+			\node(o3){};
+			\node[shift=({-9mm,3mm})]{$\ket{\mu_3}$}; &
+			\node(e3)[gate]{$\nearrow$}; \\
+		% 4. SOR
+			\node(b4){$\ket{0}$}; &[-0.5cm]
+			\node[gate](H41){$H$}; &
+			&
+			\node[control](c41){}; &
+			&
+			\node(d4){\dots}; &
+			&
+			\node(o4){};
+			\node[shift=({-9mm,3mm})]{$\ket{\mu_2}$}; &
+			\node(e4)[gate]{$\nearrow$}; \\
+		% 5. SOR
+			\node(b5){$\ket{0}$}; &[-0.5cm]
+			\node[gate](H51){$H$}; &
+			\node[control](c51){}; &
+			&
+			&
+			\node(d5){\dots}; &
+			&
+			\node(o5){};
+			\node[shift=({-9mm,3mm})]{$\ket{\mu_1}$}; &
+			\node(e5)[gate]{$\nearrow$}; \\
+		% 6. SOR
+			\node(b6){$\ket{u}$}; &[-0.5cm]
+			\node{\textbf{/}};
+			\node[shift=({-1mm,3mm})]{$t$};&
+			\node[gate](U61){$U$}; &
+			\node[gate](U62){$U^2$}; &
+			\node[gate](U63){$U^4$}; &
+			\node(d6){\dots}; &
+			\node[gate](U64){$U^{2^{n-1}}$}; &
+			&
+			\node(e6){$\ket{u}$}; \\
+	    };
+		\node[gate, align=left, fit=(o1) (o1) (o5)]{I\\Q\\F\\T};
+		\begin{pgfonlayer}{background}
+			% DOBOZ
+			\node[box](background)[fit=(b1) (mu1) (e6)]{};
+			% OSSZEKOTTETESEK
+			\draw[thick]
+				(b1)--(d1) (d1)--(e1)
+				(b3)--(d3) (d3)--(e3)
+				(b4)--(d4) (d4)--(e4)
+				(b5)--(d5) (d5)--(e5)
+				(c11)--(U64) (c31)--(U63) (c41)--(U62) (c51)--(U61);
+			\draw[ultra thick]
+				(b6)--(d6) (d6)--(e6);
+		\end{pgfonlayer}
+	\end{tikzpicture}
+	\caption{Általános sajátértékbecslõ áramkör}
+	\label{fig:qpe_teljes}
+\end{figure}
+
+\clearpage
+
+Az elõállított $\ket{\mu_l}$ kvantumbitekbõl az inverz Fourier-transzformáció a $\ket{i}$ bázisállapotot képzi, amelyet projektív méréssel biztosan azonosítani is tudunk. Ezután a keresett fázistényezõ $\kappa_u=\frac{i}{2^n}$ módon számítható.
+
+Ha a fázisra vonatkozó kezdeti feltételezésünket elvetjük, és bármilyen $\kappa_u \in [0;1[$ számot megengedünk, akkor az áramkör nyilvánvalóan nem fog teljes bizonyossággal mûködni. Erre az esetre \acite{qcc} irodalomban minden részletre kiterjedõ hibaanalízist olvashatunk, amelytõl itt eltekintek, és az alábbiakban bizonyítás nélkül közlöm a fontosabb következményeket. 
+
+A fázistényezõt jobb híján továbbra is a $\kappa_u=\frac{m}{2^n}$ összefüggés alapján származtatjuk, ahol $m$ a mérés eredménye. Most azonban a kapott $\kappa_u$ hibával terhelt lesz, amely hiba két részbõl tevõdik össze:
+\begin{enumerate}
+	\item Az egyik hibakomponens tisztán klasszikus, kvantálási hiba jellegû. Ez abból adódik, hogy véges számú kvantumbittel csak véges számú különbözõ fázistényezõt tudunk megkülönböztetni.
+	\item A másik hibakomponens a kvantumos bizonytalanságból ered: az IQFT kimenetén nem az egyik bázisállapot fog elõállni, hanem több bázisállapot szuperpozíciója, tehát a méréseink már nem teljesen determinisztikus eredményt fognak szolgáltatni.
+\end{enumerate}
+Ha azt szeretnénk, hogy a $\kappa_u$ fázistényezõ véges felbontásból eredõ, klasszikus hibája legfeljebb $2^{-c}$ legyen, a kvantumos bizonytalanság miatti téves mérés valószínûsége pedig legfeljebb $P_e$, akkor a fázisbecslõnk felsõ regiszterének legalább
+\begin{equation*}
+	n=c-1+\left\lceil \log_2\left(3+\frac{1}{P_e} \right) \right\rceil
+\end{equation*}
+kvantumbitbõl kell állnia, de a mérést elegendõ a regiszter alsó $c-1$ qubitjén végezni. A szükséges bitszám meghatározása minden alkalmazás esetén egyedi, intuitív, mérnöki feladat -- egyensúlyt kell találni az elvárt pontosság, valamint a megvalósítás költségei között.
+
+Végezetül nézzük meg, hogy mi történik, ha az alsó, $t$ qubites kvantumregisztert nem a $\ket{u}$ sajátállapottal inicializáljuk (mert mondjuk nem ismerjük), hanem egy tetszõleges $\ket{\varphi}$ állapottal! Mivel az $\mathbf{U}$ operátor unitér, sajátállapotai ortonormált bázist alkotnak, vagyis bármely tetszõleges $\ket{\varphi}$ állapot felírható a sajátállapotok szuperpozíciójaként. Ebbõl a linearitás miatt az következik, hogy ilyenkor a kimeneten az egyes sajátértékeket kapjuk meg a megfelelõ valószínûségi eloszlás szerint. Ezt kihasználja \aref{sec:shor}. pontban bemutatott Shor-algoritmus, de például a rendezetlen adatbázisokban történõ keresésre szolgáló Grover-algoritmus is.
+
+\clearpage
+
+%--------------------------------------------- section4 ---------------------------------------------------------
+
+\section{Az RSA-kód feltörése kvantumszámítógéppel}
+
+Az RSA-algoritmus napjaink egyik legelterjedtebb nyilvános kulcsú kriptográfiai eljárása, amelyet 1977-ben publikált Ron Rivest, Adi Shamir és Leonard Adleman. Számításelméleti szempontból az algoritmus érdekességét az adja, hogy a mai napig nem bizonyított, hogy biztonságos. Mindazonáltal jelenlegi ismereteink alapján úgy tûnik, a feltörés klasszikus módszerekkel olyan lassan menne, hogy meg sem érdemes próbálni. Látni fogjuk azonban, hogy kvantumszámítógéppel nincs elvi akadálya az RSA-titkosítás gyors visszafejtésének.
+
+\subsection{Az RSA-algoritmus}
+
+Az RSA-eljárás nyilvános kulcsú titkosítás, amely azt jelenti, hogy az üzenet titkosításához használt kulcs publikus, ellenben a kódolt üzenet visszafejtéséhez használt kulcs természetesen titkos. Nézzük meg, milyen lépéseket kell tennünk, ha ily módon titkosított üzenetekkel történõ kommunikációt szeretnénk implementálni!
+\begin{enumerate}
+	\item Választunk két különbözõ, nagy prímszámot, legyenek ezek $p$ és $q$.
+	\item Képezzük az $N=p \cdot q$ szorzatot.
+	\item A szorzatra kiértékeljük az Euler-függvényt\footnote{Az Euler-féle $\varphi$-függvény egy adott pozitív egész számhoz a nála nem nagyobb relatív prímek számát adja meg.}: $\varphi(N)=(p-1)(q-1)$, majd választunk egy kicsi, páratlan $a$ számot, melyre $\lnko{\{\varphi(N),a\}}=1$.
+	\item Kiszámítjuk az $a$ szám modulo $\varphi(N)$ értelemben vett multiplikatív inverzét, jelöljük ezt $b$-vel: $a \cdot b \equiv 1 \pmod{\varphi(N)}$.
+	\item A nyilvános kulcs $K=\{a,N\}$, a titkos kulcs $L=\{b,N\}$.
+	\item A $K$ kulcsot nyilvánosságra hozzuk, így aki az $m$ üzenetet titkosítva szeretné nekünk elküldeni, az a $c=m^a \mod N$ kifejezés kiértékelésével megteheti.
+	\item Miután megkaptuk a $c$ kódszöveget, az $m=c^b \mod N$ kifejezés kiértékelésével állíthatjuk belõle vissza az eredeti $m$ üzenetet\footnote{A dekódolási formula mögött az Euler--Fermat-tétel van. A visszafejtés helyességének bizonyítása elolvasható \acite{algo} irodalomban.}.
+\end{enumerate}
+
+A kódolásra és a dekódolásra léteznek hatékony implementációk, de az algoritmus számításigénye ezekkel sem csekély. A gyakorlatban ezért sokszor elõfordul, hogy maga az érdemi kommunikációs folyamat egy gyorsabb, szimmetrikus kulcsú algoritmussal titkorítva zajlik, és csupán az elõzetes kulcsmegosztáshoz használnak RSA-t.
+
+\clearpage
+
+Nézzünk egy számpéldát az algoritmus mûködésére! Természetesen a példában jóval kisebb számok szerepelnek, mint a gyakorlatban használatos RSA-kódolásokban. Összehasonlításképpen: napjainkban a prímszámokat úgy érdemes megválasztani, hogy az $N$ szorzat legalább 2048 bites legyen, ez 617 decimális számjegynek felel meg.
+\begin{enumerate}
+	\item Legyen a két prímszám $p=53$ és $q=47$.
+	\item A szorzatuk $N=53 \cdot 47=2491$.
+	\item Az Euler-függvény $\varphi(2491)=52 \cdot 46=2392$. Válasszuk ehhez az $a=9$ relatív prímet!
+	\item A $9$ modulo $2392$ értelemben vett multiplikatív inverze $b=1329$, mert $9 \cdot 1329=11961=5 \cdot 2392+1$.
+	\item A nyilvános kulcs $K=\{9; 2491\}$, a titkos kulcs $L=\{1329; 2491\}$.
+	\item Tegyük fel, hogy valaki az $m=623$ üzenetet szeretné nekünk titkosítva elküldeni! Ekkor a $c=623^9 \mod 2491=2288$ kódszöveget állítja elõ a nyilvános kulcsunk ismeretében.
+	\item Végül a kódot visszafejtjük a titkos kulcsunkkal: $m=2288^{1329} \mod 2491=623$.
+\end{enumerate}
+
+\subsection{Feltörés klasszikusan -- rendkeresés}
+
+Az elõzõ példa alapján az algoritmus nem tûnik túlságosan biztonságosnak. A nyilvános kulcsunk az $a=9$ és $N=2491$ számokból áll -- aki rájön arra, hogy az $N$ szám az $53$ és $47$ prímek szorzata, az a 4. pontban részletezett számítás végrehajtása után már meg is kapta a titkos kulcsunkat, amelynek birtokában a nekünk szánt kódolt üzeneteket vissza tudja fejteni.
+
+Az algoritmus mûködõképességét azonban az biztosítja, hogy a gyakorlatban használt, többszáz jegyû kulcsok prímtényezõinek meghatározása reménytelenül lassan menne. Az $N$ szám osztóinak megkeresése ugyanis FNP osztályú probléma: egyelõre nem találtak rá polinomidejû\footnote{A számításelméletben polinomidejûnek nevezünk egy algoritmust, ha lépésszáma a bemenet méretével legfeljebb polinomiálisan -- tehát nem például exponenciálisan -- növekszik.} algoritmust, és úgy sejtjük, hogy nem is létezik -- bár ez nincs bizonyítva.
+
+A prímtényezõs felbontás meghatározására a legtriviálisabb módszer az, hogy a szám négyzetgyökénél kisebb összes prímszámmal megpróbáljuk elosztani. Ily módon megközelítõleg $4 \cdot 10^{134}$ évig tartana egy $1024$ bites RSA-kulcs feltörése (összehasonlításképpen: az õsrobbanás óta mostanáig eltelt idõ kb. $1@38 \cdot 10^{10}$ év). Ennél számos jobb algoritmus létezik, a leggyorsabbal ez az idõ kb. $11@3$ év lenne. Az alábbiakban egy olyan algoritmust mutatok be, amely ugyan a klasszikus módszerek közül messze nem a leggyorsabb, de a kvantumos megvalósítás szempontjából ennek lesz nagy jelentõsége.
+
+Legyenek az $x$ és $N$ pozitív egész számok relatív prímek és legyen $x<N$. Ekkor az $x$ szám \emph{modulo $N$ értelemben vett rendjének} nevezzük azt a legkisebb pozitív egész $r$ számot, amelyre $x^r \equiv 1 \pmod{N}$. A következõkben egy számpéldán keresztül illusztrálom, hogy a rendkeresés felhasználható az RSA-kulcsok feltörésére.
+\begin{enumerate}
+	\item Legyen a felbontandó szám az elõzõ példában használt $N=2491$.
+	\item Választunk egy $1$ és $N-1$ közötti egész számot, legyen ez most $x=189$.
+	\item Megkeressük $x$ modulo $N$ értelemben vett rendjét. Ha a rend páratlanra adódik, akkor új $x$-et sorsolunk.
+		\begin{table}[H]
+			\centering
+			\begin{tabular}{c c c c}
+				$189^1$ & $\equiv$ & $189$ & $\pmod{2491}$\\
+				$189^2$ & $\equiv$ & $847$ & $\pmod{2491}$\\
+				$189^3$ & $\equiv$ & $659$ & $\pmod{2491}$\\
+				$189^4$ & $\equiv$ & $1$ & $\pmod{2491}$
+			\end{tabular}
+		\end{table}
+	\item Tehát $x$ rendje $r=4$. Képezzük az $y=x^\frac{r}{2}=189^2=35721$ számot.
+	\item Kiszámítjuk $y-1$ és $y+1$ osztási maradékát $N$-nel. Ha valamelyik nulla, akkor új $x$-et sorsolunk.
+		\begin{equation*}
+			k_-= (y-1) \! \mod N = 35720 \! \mod 2491 = 846
+		\end{equation*}
+		\begin{equation*}
+			k_+= (y+1) \! \mod N = 35722 \! \mod 2491 = 848
+		\end{equation*}
+	\item Képezzük az így kapott számok legnagyobb közös osztóját $N$-nel, ezek lesznek a keresett prímtényezõk.
+		\begin{equation*}
+			p= \lnko{\{k_+,N\}}= \lnko{\{848;2491\}} = 53
+		\end{equation*}
+		\begin{equation*}
+			q= \lnko{\{k_-,N\}}= \lnko{\{846;2491\}} = 47
+		\end{equation*}
+\end{enumerate}
+Valóban, $53\cdot 47=2491$, tehát visszakaptuk a kiindulási prímszámokat, amelyek birtokában képezhetõ a titkos kulcs is. A legnagyobb közös osztó számítására létezik polinomidejû módszer (például az egyszerû euklideszi algoritmus is ilyen), így ha a rendkeresést gyorsan el tudnánk végezni, akkor a prímtényezõket is gyorsan megkapnánk\footnote{Megjegyzem, hogy az RSA-kód feltörésére más -- szintén rendkeresésen alapuló -- módszerek is léteznek. Köztük olyanok is, amelyek még a két prím meghatározását sem igénylik. Léteznek továbbá az informatikai rendszerek sebezhetõségeire építõ feltörési kísérletek is, ezek tárgyalása azonban nem célja ennek a dolgozatnak.}. A rendkeresés problémája klasszikus algoritmussal nem oldható meg polinomidõben, de amint a következõ pontban látni fogjuk, kvantumalgoritmussal már igen.
+
+\clearpage
+
+\subsection{Feltörés kvantumosan -- Shor-algoritmus} \label{sec:shor}
+
+Peter Shor, a Bell Laboratories kutatója -- ma az MIT matematikaprofesszora -- 1994-ben jött rá arra, hogy a rendkeresés klasszikusan FNP osztályú problémája kvantumszámítógép segítségével a BQP \emph{(Bounded Error Quantum Polynomial Time)} problémaosztályba emelhetõ át, vagyis létezik olyan legfeljebb polinomiális komplexitású algoritmus, amely minden lehetséges bemenetre megoldást talál $\frac{1}{3}$-nál nem nagyobb hibavalószínûséggel.
+
+Számos kvantumalgoritmus mûködése alapul a párhuzamosíthatóság elvén: a megoldandó feladatot egyszerre kiértékeljük az összes lehetséges bemenetre, majd a kimenetek közül annak a valószínûségi amplitúdóját erõsítjük fel, amelyik a megoldást szolgáltatta. A Shor-algoritmus esetében ez azt jelenti, hogy kiszámítjuk $x^k \! \mod N$ értékét az összes lehetséges $k<N$ pozitív egész számra, és ezeket eltároljuk egy $t=\lceil\log_2 N\rceil$ qubites regiszterben. Egy másik regiszterben a $k$ szám összes lehetséges értékét tároljuk, majd ezek közül annak az amplitúdóját erõsítjük fel, amelyre $x^k \! \mod N=1$. \Aref{fig:shor}. ábrán látható speciális fázisbecslõ hálózat éppen ezt a mûködést valósítja meg.
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[thick]
+		\tikzstyle{gate}=[draw,fill=white,minimum size=1.5em]
+		\tikzstyle{control}=[draw,fill,shape=circle,minimum size=5pt,inner sep=0pt]
+		\tikzstyle{box}=[fill=blue!5,thick,draw=black,rounded corners=2mm]
+		\matrix[row sep=0.4cm, column sep=0.8cm](circuit){
+		% 1. SOR
+			\node(b1){$\ket{0}$}; &[-0.5cm]
+			\node[gate](H11){$H$}; &
+			&
+			&
+			\node(d1){\dots}; &
+			\node[control](c11){}; &
+			\node(o1){}; &
+			\node(e1)[gate]{$\nearrow$}; \\
+		% 2. SOR
+			\node(b2){\vdots}; &[-0.5cm]
+			&
+			&
+			&
+			&
+			\node(d2){\vdots}; &
+			&
+			\node(e2){\vdots}; \\
+		% 3. SOR
+			\node(b3){$\ket{0}$}; &[-0.5cm]
+			\node[gate](H31){$H$}; &
+			&
+			\node[control](c31){}; &
+			\node(d3){\dots}; &
+			&
+			\node(o3){}; &
+			\node(e3)[gate]{$\nearrow$}; \\
+		% 4. SOR
+			\node(b4){$\ket{0}$}; &[-0.5cm]
+			\node[gate](H41){$H$}; &
+			\node[control](c41){}; &
+			&
+			\node(d4){\dots}; &
+			&
+			\node(o4){}; &
+			\node(e4)[gate]{$\nearrow$}; \\
+		% 5. SOR
+			\node(b5){$\ket{1}$}; &[-0.5cm]
+			&
+			\node(o51){}; &
+			\node(o52){}; &
+			\node(d5){\dots}; &
+			\node(o53){}; &
+			&
+			\node(e5){}; \\
+		% 6. SOR
+			\node(b6){$\ket{0}$}; &[-0.5cm]
+			&
+			\node(o61){}; &
+			\node(o62){}; &
+			\node(d6){\dots}; &
+			\node(o63){}; &
+			&
+			\node(e6){}; \\
+		% 7. SOR
+			\node(b7){\vdots}; &[-0.5cm]
+			&
+			\node(o71){}; &
+			\node(o72){}; &
+			&
+			\node(o73){}; &
+			\node{\vdots}; &
+			\node(e7){}; \\
+		% 8. SOR
+			\node(b8){$\ket{0}$}; &[-0.5cm]
+			&
+			\node(o81){}; &
+			\node(o82){}; &
+			\node(d8){\dots}; &
+			\node(o83){}; &
+			&
+			\node(e8){}; \\
+		% 9. SOR
+			\node(b9){$\ket{0}$}; &[-0.5cm]
+			&
+			\node(o91){}; &
+			\node(o92){}; &
+			\node(d9){\dots}; &
+			\node(o93){}; &
+			&
+			\node(e9){}; \\
+	    };
+		\node[gate, align=left, fit=(o1) (o1) (o4)]{I\\Q\\F\\T};
+		\node(mod1)[gate, align=left, fit=(o51) (o51) (o91)]{\footnotesize{$1.$}};
+		\node(mod2)[gate, align=left, fit=(o52) (o52) (o92)]{\footnotesize{$2.$}};
+		\node(mod3)[gate, align=left, fit=(o53) (o53) (o93)]{\footnotesize{$n.$}};
+		% BRACKET
+		\draw[decorate,decoration={brace,mirror},ultra thick]
+			($(b1.north west)+(-1mm,-1mm)$)
+			to node[midway,left,xshift=-2mm](bracket){$n$}
+			($(b4.south west)+(-1mm,1mm)$);
+		\draw[decorate,decoration={brace,mirror},ultra thick]
+			($(b5.north west)+(-1mm,-1mm)$)
+			to node[midway,left,xshift=-2mm]{$t$}
+			($(b9.south west)+(-1mm,1mm)$);
+		\begin{pgfonlayer}{background}
+			% DOBOZ
+			\node[box](background)[fit=(bracket) (e1) (mod1)]{};
+			% OSSZEKOTTETESEK
+			\draw[thick]
+				(b1)--(d1) (d1)--(e1)
+				(b3)--(d3) (d3)--(e3)
+				(b4)--(d4) (d4)--(e4)
+				(b5)--(d5) (d5)--(e5)
+				(b6)--(d6) (d6)--(e6)
+				(b8)--(d8) (d8)--(e8)
+				(b9)--(d9) (d9)--(e9)
+				(c41)--(mod1) (c31)--(mod2) (c11)--(d2) (d2)--(mod3);
+		\end{pgfonlayer}
+	\end{tikzpicture}
+	\caption{A Shor-algoritmus megvalósítása}
+	\label{fig:shor}
+\end{figure}
+
+A felsõ regiszter szerepét könnyû azonosítani: a Hadamard-kapuk a klasszikus $\ket{0}$ állapotból a $\ket{+}$ egyenletes szuperpozíciót hozzák létre, tehát itt történik meg az összes lehetséges $k$ érték elõállítása. Az alsó sorban lévõ számozott kapuk úgy mûködnek, hogy a felsõ regiszter $l$-edik vezetékével vezérelt kapu az $x^{2^{n-l}}\!\mod N$ mûveletet hajtja végre, ha a vezérlõbemenet $\ket{1}$. Tehát az elsõ az $x$ értéket állítja elõ, a második az $x^2$-et, és így tovább, modulo $N$ értelemben. Számelméletbõl ismeretes, hogy a moduláris hatványozás binárisan az alábbi módon végezhetõ:
+\begin{equation*}
+	x^k \mod N=\prod\limits_{l=1}^{n}\left( x^{k_l 2^{n-l}} \! \mod N \right) =
+\end{equation*}
+\begin{equation*}
+	=\left( x^{k_1 2^{n-1}} \! \mod N \right) \left( x^{k_2 2^{n-2}} \! \mod N \right) \dots \left( x^{k_n 2^0} \! \mod N \right),
+\end{equation*}
+ahol $k_l \in \{0;1\}$ a $k$ szám $l$-edik bitje, azaz $k = \overline{k_1 k_2 \dots k_n}=k_1 2^{n-1} + k_2 2^{n-2} + \dots + k_n 2^0$. Észrevehetjük, hogy a szorzat egyes tényezõi éppen az imént definiált kapuknak felelnek meg, vagyis az alsó sor kapui együttesen az $x^k\!\mod N$ mûveletet végzik el. Az áramkör tehát egy olyan fázisbecslõnek (ld. \aref{fig:qpe_teljes}. ábrát) felel meg, amelyben az $\mathbf{U}$ operátor egy $x$-szel való szorzást hajt végre modulo $N$ értelemben:
+\begin{equation*}
+	\mathbf{U}: \ket{q} \rightarrow \ket{(qx)\!\mod N}
+\end{equation*}
+Megmutatható\footnote{A bizonyítás elolvasható \acite{qcc} irodalomban.}, hogy minden $b=1,\dots,r-1$ esetén a
+\begin{equation*}
+	\ket{u_b}=\sum\limits_{s=0}^{r-1} \frac{e^{-j 2 \pi \frac{b}{r} s}}{\sqrt{r}} \ket{x^s \! \mod N}
+\end{equation*}
+állapot sajátvektora ennek az $\mathbf{U}$ operátornak, és a hozzá tartozó fázistényezõ $\kappa_b=\frac{b}{r}$. Mivel a keresett $r$ rend megjelenik a fázistényezõben, a rendkeresés fázisbecsléssel történhet.
+
+Felmerül azonban a kérdés, hogy milyen kezdeti állapottal inicializáljuk az alsó regisztert. Korábban láttuk, hogy a legjobb megoldás az volna, ha valamelyik sajátvektort tennénk ezekre a vezetékekre -- azonban a sajátvektorok kifejezésében szerepel az $r$ rend, amelyet éppen meg szeretnénk határozni. Nézzük meg, hogy mivel egyenlõ a sajátvektorok egyenletes szuperpozíciója!
+\begin{equation*}
+	\sum\limits_{b=0}^{r-1} \frac{1}{\sqrt{r}} \ket{u_b} = \sum\limits_{b=0}^{r-1} \frac{1}{\sqrt{r}} \sum\limits_{s=0}^{r-1} \frac{e^{-j 2 \pi \frac{b}{r} s}}{\sqrt{r}} \ket{x^s \! \mod N}=
+\end{equation*}
+\begin{equation*}
+	\frac{1}{r} \sum\limits_{s=0}^{r-1} \left( \sum\limits_{b=0}^{r-1} e^{-j 2 \pi \frac{b}{r} s} \right) \ket{x^s \! \mod N} = \ket{x^0 \! \mod N}=\ket{1}
+\end{equation*}
+Azt kaptuk tehát, hogy a fázisbecslõ alsó regiszterét a $t$ qubites $\ket{1}$ állapottal inicializálhatjuk, ez látható \aref{fig:shor}. ábrán is. Ekkor az $m_b$ mérési eredménybõl $\kappa_b \approx \frac{m_b}{2^n}$ módon számíthatjuk a fázistényezõt, azt azonban nem tudjuk, hogy ez milyen $b$-hez tartozik, mivel $b$ az egyenletes szuperpozícióval történõ inicializálás miatt egyenletes valószínûségi eloszlást követ az $\{1;2;\dots;r-1\}$ halmazon. A következõkben azt nézzük meg, hogyan kapható meg mégis a rend a mérési eredménybõl.
+
+Az $\frac{m_b}{2^n}$ szám \emph{reguláris lánctört alakjának} nevezzük az
+\begin{equation*}
+	\frac{m_b}{2^n}=q_1+\cfrac{1}{q_2+\cfrac{1}{q_3+\cfrac{1}{q_4+\dots }}}
+\end{equation*}
+emeletes törtet, a 
+\begin{equation*}
+	\zeta_1=q_1, \quad \zeta_2=q_1+\frac{1}{q_2}, \quad \zeta_3=q_1+\cfrac{1}{q_2+\cfrac{1}{q_3}}, \quad \dots, \quad \zeta_l=\frac{m_b}{2^n}
+\end{equation*}
+számok pedig $\frac{m_b}{2^n}$ \emph{lánctörtes közelítései}. A $q_1$, $q_2$, \dots számok a lánctört \emph{jegyei}. Igazolható, hogy amennyiben
+\begin{equation*}
+	\left\lvert \frac{b}{r} - \frac{m_b}{2^n} \right\rvert \leq \frac{1}{2 r^2}
+\end{equation*}
+fennáll, akkor $\frac{b}{r}$ megegyezik $\frac{m_b}{2^n}$ valamelyik lánctörtes közelítésével. Ez a feltétel kielégíthetõ, ha a felsõ regisztert $n=\left\lceil \log_2\left(N^2\right)+\log_2\left(3+P_e^{-1}\right) \right\rceil$ qubitesre választjuk. Nézzük meg az alábbi -- \acite{qcc} irodalomból kölcsönzött -- példán keresztül, hogyan használhatók fel ezen ismeretek a rend megkeresésére!
+
+Tegyük fel, hogy egy kvantumszámítógépen megvalósítottuk a Shor-algoritmust $n=11$ qubit szélességû felsõ regiszterrel! Az $N=33$ kulcsot szeretnénk faktorizálni úgy, hogy az $x=5$ szám rendjét keressük. \Aref{fig:shorstat}. ábrán látható, hogy az IQFT kimenetén milyen mérési eredményeket milyen valószínûséggel kaphatunk meg.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=110mm,keepaspectratio]{abrak/shorstat.png}
+	\caption{Kimeneti statisztika}
+	\label{fig:shorstat}
+\end{figure}
+A csúcsok helyei: $\{0; 205; 410; 614; 819; 1024; 1229; 1434; 1638; 1843\}$, ezek felelnek meg az egyes $\kappa_b$ értékeknek. Megközelítõleg $78$\,\% annak a valószínûsége, hogy egy mérés során meg is kapjuk az egyik értéket ezek közül. Tegyük fel, hogy a mérésünk eredménye $m_b=614$. A $\frac{614}{2^{11}}$ számot lánctörtbe fejtve az alábbi jegyeket kapjuk:
+\begin{equation*}
+	q_1=0, \quad q_2=3, \quad q_3=2, \quad q_4=1, \quad q_5=50, \quad q_6=2.
+\end{equation*}
+Ezek alapján pedig a közelítések:
+\begin{equation*}
+	\zeta_1=0, \quad \zeta_2=\frac{1}{3}, \quad \zeta_3=\frac{2}{7}, \quad \zeta_4=\frac{3}{10}, \quad \zeta_5=\frac{152}{507}, \quad \zeta_6=\frac{307}{1024}=\frac{m_b}{2^n}.
+\end{equation*}
+Ezek közül választjuk ki azt, amelyik a legközelebb van $\frac{614}{2048}$-hoz, de a nevezõje még kisebb, mint $N$, ez $\zeta_4=\frac{3}{10}$. Tehát $x$ rendjére $r=10$ adódott. Valóban, $5^{10}=33\cdot295928+1$. Ebbõl $N$ prímtényezõi:
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c c c c c}
+		$p$ & $=$ & $\lnko\{33;\,(5^5+1)\!\mod 33\}$ & $=$ & $\lnko\{33;\,24\}$ & $=$ & $3$ \\
+		$q$ & $=$ & $\lnko\{33;\,(5^5-1)\!\mod 33\}$ & $=$ & $\lnko\{33;\,22\}$ & $=$ & $11$
+	\end{tabular}
+\end{table}
+
+A fentiekben bemutatott módszerrel a korábban példaként hozott $1024$ bites kulcsok elvben $\SI{10}{\milli\second}$ alatt feltörhetõek. Sõt, egy tízezer bites kulcs faktorizálása sem tartana tovább egyetlen másodpercnél. Sajnos -- illetve adatbiztonsági szempontból talán szerencsére -- a gyakorlati megvalósítás itt még nem tart. 2001-ben az IBM kutatói egy hét qubites, mágneses magrezonancián alapuló kvantumáramkörrel sikeresen implementálták a Shor-algoritmust a $15=3 \cdot 5$ faktorizálásra, 2012-ben pedig a University of Bristol professzorainak a $21=3\cdot 7$ felbontást is sikerült megvalósítaniuk egy optikai elvû kvantumáramkörrel -- mindkét eredményrõl részletesen olvashatunk \acite{ibm} és \cite{bristol} hivatkozásoban. Ezzel szemben klasszikus módszerekkel már $768$ bites ($232$ decimális jegyû) RSA-kulcsot is sikerült feltörni. Fontos különbség azonban, hogy amíg a klasszikus feltörés hatékonyságának elvi, matematikai korlátai vannak, addig a kvantumos feltörés esetében ezek a korlátok csak gyakorlati, technikai jellegûek. Elképzelhetõ tehát, hogy megfelelõ mérnöki megoldások alkalmazásával a közeljövõben rendkívül gyorsan feltörhetõvé válnak a ma még biztonságosnak tekintett kulcsok is.
+
+\clearpage
+
+%----------------------------------------- irodalomjegyzek ------------------------------------------------------
+
+\renewcommand{\refname}{Irodalomjegyzék}
+\begin{thebibliography}{99}
+	\bibitem{qcc}
+		Sándor Imre, Ferenc Balázs.
+		{\it Quantum Computing and Communications}.
+		John Wiley \& Sons Ltd., Chichester, 2005.
+
+	\bibitem{ivanyos}
+		Ivanyos Gábor.
+		{\it Kvantumszámítógépes algoritmusok}.
+		Debreceni Egyetem, 2011.
+
+	\bibitem{aciqc}
+		Michael Loceff.
+		{\it A Course in Quantum Computing}.
+		Foothill College, 2015.
+		
+	\bibitem{szamtud}
+		Katona Gyula Y., Recski András, Szabó Csaba.
+		{\it A számítástudomány alapjai}.
+		Typotex, Budapest, 2006.
+
+	\bibitem{algo}
+		Rónyai Lajos, Ivanyos Gábor, Szabó Réka.
+		{\it Algoritmusok}.
+		Typotex, Budapest, 2008.
+
+	\bibitem{vega}
+		Juan Bermejo Vega.
+		{\it Classical simulations of non-abelian quantum Fourier transforms}.
+		Technische Universität München, 2011.
+
+	\bibitem{ibm}
+		Lieven M. K. Vandersypen, Matthias Steffen, Gregory Breyta, Costantino S. Yannoni, Mark H. Sherwood, Isaac L. Chuang.
+		{\it Experimental realization of Shor's quantum factoring algorithm using nuclear magnetic resonance}.
+		Nature,
+		2001. vol. 414.,
+		883-887. oldal,
+		ISSN: 0028-0836.
+
+	\bibitem{bristol}
+		Enrique Martin-Lopez, Anthony Laing, Thomas Lawson, Roberto Alvarez, Xiao-Qi Zhou, Jeremy L. O'Brien.
+		{\it Experimental realization of Shor's quantum factoring algorithm using qubit recycling}.
+		Nature Photonics,
+		2012. vol. 6.,
+		773-776. oldal,
+		ISSN: 1749-4885.
+
+\end{thebibliography}
+\addcontentsline{toc}{section}{Irodalomjegyzék}
+\clearpage
+
+%--------------------------------------- roviditesek jegyzeke ---------------------------------------------------
+
+\section*{Rövidítések jegyzéke}
+\addcontentsline{toc}{section}{Rövidítések jegyzéke}
+
+\begin{table}[!ht]
+	\begin{tabular}{ll}
+		\textbf{DFT} & Discrete Fourier Transform \\
+		\textbf{IDFT} & Inverse Discrete Fourier Transform \\
+		\textbf{FFT} & Fast Fourier Transform \\
+		\textbf{IFFT} & Inverse Fast Fourier Transform \\
+		\textbf{QFT} & Quantum Fourier Transform \\
+		\textbf{IQFT} & Inverse Quantum Fourier Transform \\
+		\textbf{LSB} & Least Significant Bit \\
+		\textbf{MSB} & Most Significant Bit \\
+		\textbf{QPE} & Quantum Phase Estimation \\
+		\textbf{RSA} & Rivest--Shamir--Adleman-algoritmus \\
+		\textbf{FNP} & Function Nondeterministic Polynomial \\
+		\textbf{BQP} & Bounded Error Quantum Polynomial
+	\end{tabular}
+\end{table}
+
+\clearpage
+
+\label{page:last}
+\end{document}

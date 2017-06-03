@@ -1,2 +1,22 @@
-# misc
-Vegyes forrÃ¡skÃ³dok.
+# Vegyes forráskódok
+
+- **fem_waveguide**: végeselemes szimuláció az elektromágneses hullám csõtápvonalban való terjedésére  ([videó](https://www.youtube.com/watch?v=mLOpLBptPcE&list=PL9_VlVdB8s882QMHiqJlDpJeKWxwP5CIG))
+- **java_minesweeper**: aknakeresõ játék Javában
+- **java_pong**: pingpong játék Javában
+- **moire**: interaktív MATLAB illusztráció a Moiré-jelenség keletkezéséhez
+- **qft**: a kvantum Fourier-transzformáció bemutatása
+- **stegano**: szöveg elrejtése képfájlban (szteganográfia)
+- **avltree.c**: egyszerû bináris fa és önkiegyensúlyozó AVL-fa összehasonlítása
+- **bode_asymptotic.m**: folytonos idejû átviteli függvény törtvonalas közelítõ Bode-diagramjának megrajzolása
+- **conway.c**: Conway-féle sejtautomata
+- **huffman.c**: szöveg karaktereinek Huffman-kódolása bináris fával
+- **keylogger.c**: billentyûleütés-naplózó Windows alá (oktatási célra!)
+- **knight_nonrecursive.c**: sakktábla két mezeje közötti lóugrás-út keresése nonrekurzív backtrack algoritmussal
+- **knight_recursive.c**: sakktábla két mezeje közötti lóugrás-út keresése rekurzív backtrack algoritmussal
+- **mandelbrot.c**: Mandelbrot-halmaz megrajzolása PPM képfájlba
+- **mandelbrot_julia.ipynb**: Mandelbrot- és Julia-halmaz Pythonban, vektorosan
+- **morse.c**: Morse-kód visszafejtése bináris fa bejárásával
+- **n_queens_backtrack.c**: N vezér elhelyezése az NxN-es sakktáblán rekurzív visszalépéses kereséssel
+- **parametric_curves.m**: paraméteres görbék és felületek ábrázolása MATLAB-ban
+- **search_sort.c**: néhány keresési és rendezési algoritmus
+- **taylor_series.m**: tetszõleges függvény Taylor-soros közelítésének számítása és ábrázolása
