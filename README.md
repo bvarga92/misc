@@ -20,6 +20,6 @@
 - **parametric_curves.m**: paraméteres görbék és felületek ábrázolása MATLAB-ban
 - **rungekutta_double_pendulum.m**: kettõs inga differenciálegyenletének megoldása Runge-Kutta-módszerrel
 - **rungekutta_pendulum.m**: matematikai inga differenciálegyenletének megoldása Runge-Kutta-módszerrel
-- **rungekutta_spring_pendulum.m**: rugókkal összekötött ingák differenciálegyenletének megoldása Runge-Kutta-módszerrel
+- **rungekutta_spring_pendulum.m**: rugóval csatolt ingák differenciálegyenletének megoldása Runge-Kutta-módszerrel
 - **search_sort.c**: néhány keresési és rendezési algoritmus
 - **taylor_series.m**: tetszõleges függvény Taylor-soros közelítésének számítása és ábrázolása
