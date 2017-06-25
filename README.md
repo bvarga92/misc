@@ -18,7 +18,7 @@
 - **morse.c**: Morse-kód visszafejtése bináris fa bejárásával
 - **n_queens_backtrack.c**: N vezér elhelyezése az NxN-es sakktáblán rekurzív visszalépéses kereséssel
 - **parametric_curves.m**: paraméteres görbék és felületek ábrázolása MATLAB-ban
-- **rungekutta_double_pendulum.m**: matematikai inga differenciálegyenletének megoldása Runge-Kutta-módszerrel
+- **rungekutta_double_pendulum.m**: kettõs inga differenciálegyenletének megoldása Runge-Kutta-módszerrel
 - **rungekutta_pendulum.m**: matematikai inga differenciálegyenletének megoldása Runge-Kutta-módszerrel
 - **search_sort.c**: néhány keresési és rendezési algoritmus
 - **taylor_series.m**: tetszõleges függvény Taylor-soros közelítésének számítása és ábrázolása
