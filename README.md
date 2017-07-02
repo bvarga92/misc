@@ -17,6 +17,7 @@
 - **mandelbrot_julia.ipynb**: Mandelbrot- és Julia-halmaz Pythonban, vektorosan
 - **morse.c**: Morse-kód visszafejtése bináris fa bejárásával
 - **n_queens_backtrack.c**: N vezér elhelyezése az NxN-es sakktáblán rekurzív visszalépéses kereséssel
+- **ntp.go**: idõ lekérdezése NTP szerverrõl Go nyelven
 - **parametric_curves.m**: paraméteres görbék és felületek ábrázolása MATLAB-ban
 - **rungekutta_double_pendulum.m**: kettõs inga differenciálegyenletének megoldása Runge-Kutta-módszerrel
 - **rungekutta_pendulum.m**: matematikai inga differenciálegyenletének megoldása Runge-Kutta-módszerrel
