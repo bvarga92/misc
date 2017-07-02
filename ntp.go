@@ -115,7 +115,7 @@ func NTPRequest() *ntp_t {
 	}
 	defer conn.Close()
 	conn.SetDeadline(time.Now().Add(10*time.Second))
-	ntpPacket.LVM = 0x23; //no warning, v4, client
+	ntpPacket.LVM = 0x23 //no warning, v4, client
 	ntpPacket.TransmitTimestamp = TimeToNTPFormat(time.Now())
 	err = binary.Write(conn,binary.BigEndian,ntpPacket)
 	if err != nil {
