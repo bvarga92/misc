@@ -19,6 +19,7 @@
 - **n_queens_backtrack.c**: N vezér elhelyezése az NxN-es sakktáblán rekurzív visszalépéses kereséssel
 - **ntp.go**: NTP-HTTP gateway Go nyelven
 - **parametric_curves.m**: paraméteres görbék és felületek ábrázolása MATLAB-ban
+- **rollingshutter.m**: soronkénti letapogatást végzõ fényképezõgépek által okozott torzítás illusztrálása
 - **rungekutta_double_pendulum.m**: kettõs inga differenciálegyenletének megoldása Runge-Kutta-módszerrel
 - **rungekutta_pendulum.m**: matematikai inga differenciálegyenletének megoldása Runge-Kutta-módszerrel
 - **rungekutta_spring_pendulum.m**: rugóval csatolt ingák differenciálegyenletének megoldása Runge-Kutta-módszerrel
