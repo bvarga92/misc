@@ -25,4 +25,4 @@
 - **rungekutta_spring_pendulum.m**: rugóval csatolt ingák differenciálegyenletének megoldása Runge-Kutta-módszerrel
 - **search_sort.c**: néhány keresési és rendezési algoritmus
 - **taylor_series.m**: tetszõleges függvény Taylor-soros közelítésének számítása és ábrázolása
-- **wsock.c**: socket demó Windows alatt (HTML lekérdezés)
+- **wsock.c**: socket demó Windows alatt (HTTP lekérdezés)
