@@ -18,6 +18,8 @@
 - **morse.c**: Morse-kód visszafejtése bináris fa bejárásával
 - **n_queens_backtrack.c**: N vezér elhelyezése az NxN-es sakktáblán rekurzív visszalépéses kereséssel
 - **ntp.go**: NTP-HTTP gateway Go nyelven
+- **opt_particle_swarm.m**: optimalizáció particle swarm algoritmussal
+- **opt_simulated_annealing.m**: optimalizáció szimulált lehûtéssel
 - **parametric_curves.m**: paraméteres görbék és felületek ábrázolása MATLAB-ban
 - **rollingshutter.m**: soronkénti letapogatást végzõ fényképezõgépek által okozott torzítás illusztrálása
 - **rungekutta_double_pendulum.m**: kettõs inga differenciálegyenletének megoldása Runge-Kutta-módszerrel
