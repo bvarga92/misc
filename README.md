@@ -5,6 +5,7 @@
 - **java_pong**: pingpong játék Javában
 - **moire**: interaktív MATLAB illusztráció a Moiré-jelenség keletkezéséhez
 - **qft**: a kvantum Fourier-transzformáció bemutatása
+- **rubik**: Rubik-kocka kirakó MATLAB szkript
 - **stegano**: szöveg elrejtése képfájlban (szteganográfia)
 - **avltree.c**: egyszerû bináris fa és önkiegyensúlyozó AVL-fa összehasonlítása
 - **bode_asymptotic.m**: folytonos idejû átviteli függvény törtvonalas közelítõ Bode-diagramjának megrajzolása
