@@ -254,7 +254,7 @@ function moves=solve2x2(colors)
     end
     moves=[moves temp];
 
-    %% forgatasok kiszurese, helyettuk inkabb transzformaljuk a permutaciot
+    %% forgatasok kiszurese (helyettuk inkabb transzformaljuk a permutaciot) es trivialis egyszerusitesek
     found=1;
     while found
         found=0;
@@ -372,5 +372,3 @@ function moves=solve2x2(colors)
             end
         end
     end
-
-    %% trivialis egyszerusitesek
