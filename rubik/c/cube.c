@@ -152,6 +152,18 @@ void move(const char *seq, cube_t *cube){
 	}
 }
 
+void randomScramble(char *scrmbl, unsigned length){
+	static const char opts[]="FfBbUuDdLlRr";
+	static int first=1;
+	unsigned i;
+	if(first){
+		srand(time(NULL));
+		first=0;
+	}
+	for(i=0;i<length;i++) scrmbl[i]=opts[rand()%12];
+	scrmbl[length]=0;
+}
+
 static int isCombinationOf(char a, char b, char c, char* str){
 	if(str[0]==a && str[1]==b && str[2]==c) return 1;
 	if(str[0]==a && str[1]==c && str[2]==b) return 1;
@@ -341,7 +353,7 @@ unsigned solve2x2(const cube_t *cube, char **moves){
 	/* ugy forgatjuk az also sort, hogy az FLD elem a helyen legyen */
 	while(c.colors[6]!='G'){
 			strcat(*moves,"d");
-			move("d",&c);	
+			move("d",&c);
 	}
 
 	/* mindket reteg permutalasa (PBL) */
@@ -422,7 +434,7 @@ unsigned solve2x2(const cube_t *cube, char **moves){
 	}
 	strcat(*moves,temp);
 
-	/* forgatasok kiszurese, helyettuk inkabb transzformaljuk a permutaciot */
+	/* forgatasok kiszurese (helyettuk inkabb transzformaljuk a permutaciot) es trivialis egyszerusitesek */
 	do{
 		found=0;
 		for(i=0;i<(int)strlen(*moves)-1;i++){
@@ -523,12 +535,6 @@ unsigned solve2x2(const cube_t *cube, char **moves){
 				}
 			}
 		}
-		if(found) removeChar(*moves,' ');
-	}while(found);
-
-	/* trivialis egyszerusitesek */
-	do{
-		found=0;
 		for(i=0;i<(int)strlen(*moves)-2;i++){ //tripla forgatas helyett inkabb masik irany
 			if((*moves)[i]==(*moves)[i+1] && (*moves)[i+1]==(*moves)[i+2]){
 				found=1;
@@ -546,6 +552,6 @@ unsigned solve2x2(const cube_t *cube, char **moves){
 		}
 		if(found) removeChar(*moves,' ');
 	}while(found);
-	
+
 	return strlen(*moves);
 }

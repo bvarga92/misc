@@ -3,11 +3,12 @@
 
 	typedef struct{
 		unsigned size;
-		char *colors;	
+		char *colors;
 	} cube_t;
 
 	void draw(const cube_t *cube);
 	void move(const char *seq, cube_t *cube);
+	void randomScramble(char *scrmbl, unsigned length);
 	unsigned solve2x2(const cube_t *cube, char **moves);
 
 #endif

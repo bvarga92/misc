@@ -353,22 +353,24 @@ function moves=solve2x2(colors)
             end
             ii=ii+1;
         end
+        ii=1;
+        while ii<=length(moves)-2 % tripla forgatas helyett inkabb masik irany
+            if moves(ii)==moves(ii+1) && moves(ii+1)==moves(ii+2)
+                found=1;
+                if moves(ii)>90; moves(ii)=moves(ii)-32; else; moves(ii)=moves(ii)+32; end
+                moves([ii+1 ii+2])=[];
+            end
+            ii=ii+1;
+        end
+        ii=1;
+        while ii<=length(moves)-1 % oda-vissza forgatasok kiszurese
+            if abs(moves(ii)-moves(ii+1))==32
+                found=1;
+                moves([ii ii+1])=[];
+            else
+                ii=ii+1;
+            end
+        end
     end
 
     %% trivialis egyszerusitesek
-    ii=1;
-    while ii<=length(moves)-2 % tripla forgatas helyett inkabb masik irany
-        if moves(ii)==moves(ii+1) && moves(ii+1)==moves(ii+2)
-            if moves(ii)>90; moves(ii)=moves(ii)-32; else; moves(ii)=moves(ii)+32; end
-            moves([ii+1 ii+2])=[];
-        end
-        ii=ii+1;
-    end
-    ii=1;
-    while ii<=length(moves)-1 % oda-vissza forgatasok kiszurese
-        if abs(moves(ii)-moves(ii+1))==32
-            moves([ii ii+1])=[];
-        else
-            ii=ii+1;
-        end
-    end

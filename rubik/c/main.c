@@ -2,19 +2,26 @@
 #include <stdlib.h>
 #include "cube.h"
 
+#define L 20
+
 int main(){
 	unsigned len;
-	char *solution, colors[]="WWWWGGGGOOOORRRRYYYYBBBB";
-	cube_t cube={2,colors};	
+	char colors[]="WWWWGGGGOOOORRRRYYYYBBBB", *solution, scrmbl[L+1];
+	cube_t cube={2,colors};
+
 	printf("Eredeti kocka:\n\n");
 	draw(&cube);
-	move("FuLUFuRbluRdBf",&cube);
-	printf("\n\nKevert kocka:\n\n");
+
+	randomScramble(scrmbl,L);
+	move(scrmbl,&cube);
+	printf("\n\nKeveres %u lepesben: %s\nKevert kocka:\n\n",L,scrmbl);
 	draw(&cube);
+
 	len=solve2x2(&cube,&solution);
 	move(solution,&cube);
-	printf("\n\nMegoldas %u lepesben: %s\n\nKirakott kocka:\n\n",len,solution);
+	printf("\n\nMegoldas %u lepesben: %s\nKirakott kocka:\n\n",len,solution);
 	draw(&cube);
+
 	free(solution);
 	return 0;
 }
