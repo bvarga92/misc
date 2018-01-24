@@ -13,25 +13,25 @@ function moves=solve2x2(colors)
     %% a W-O-G sarkot a FLU helyre forgatjuk (igy vegig konkret szinekkel dolgozhatunk)
     moves=[]; temp=[];
     if strcmp(sort([colors(2,2,1) colors(1,2,2) colors(1,1,4)]),'GOW')     % FRU
-        temp='fB';
+        temp='z';
     elseif strcmp(sort([colors(2,1,2) colors(2,2,3) colors(1,1,5)]),'GOW') % FLD
-        temp='lR';
+        temp='X';
     elseif strcmp(sort([colors(2,2,2) colors(2,1,4) colors(1,2,5)]),'GOW') % FRD
-        temp='UdlR';
+        temp='YX';
     elseif strcmp(sort([colors(1,1,3) colors(1,1,1) colors(2,1,6)]),'GOW') % BLU
-        temp='Lr';
+        temp='x';
     elseif strcmp(sort([colors(1,2,4) colors(1,2,1) colors(2,2,6)]),'GOW') % BRU
-        temp='LrUd';
+        temp='xY';
     elseif strcmp(sort([colors(2,1,3) colors(2,1,5) colors(1,1,6)]),'GOW') % BLD
-        temp='LLrr';
+        temp='xx';
     elseif strcmp(sort([colors(2,2,4) colors(2,2,5) colors(1,2,6)]),'GOW') % BRD
-        temp='LLrrfB';
+        temp='xxz';
     end
     moves=[moves temp]; colors=move(temp,colors); temp=[];
     if colors(1,1,2)=='W'     % elso lapon van a feher
-        temp='RluD';
+        temp='Xy';
     elseif colors(1,2,3)=='W' % balra nez a feher
-        temp='FbUd';
+        temp='ZY';
     end
     moves=[moves temp]; colors=move(temp,colors); temp=[];
 
@@ -260,9 +260,9 @@ function moves=solve2x2(colors)
         found=0;
         ii=1;
         while ii<=length(moves)-1 
-            if strcmp(moves([ii ii+1]),'Ud') || strcmp(moves([ii ii+1]),'dU')
+            if strcmp(moves([ii ii+1]),'Ud') || strcmp(moves([ii ii+1]),'dU') || moves(ii)=='Y'
                 found=1;
-                moves([ii ii+1])=[];
+                if moves(ii)=='Y'; moves(ii)=[]; else moves([ii ii+1])=[]; end
                 for jj=ii:length(moves)
                     switch moves(jj)
                         case 'F'; moves(jj)='R';
@@ -273,11 +273,15 @@ function moves=solve2x2(colors)
                         case 'l'; moves(jj)='f';
                         case 'R'; moves(jj)='B';
                         case 'r'; moves(jj)='b';
+                        case 'X'; moves(jj)='z';
+                        case 'x'; moves(jj)='Z';
+                        case 'Z'; moves(jj)='X';
+                        case 'z'; moves(jj)='x';
                     end
                 end
-            elseif strcmp(moves([ii ii+1]),'uD') || strcmp(moves([ii ii+1]),'Du')
+            elseif strcmp(moves([ii ii+1]),'uD') || strcmp(moves([ii ii+1]),'Du') || moves(ii)=='y'
                 found=1;
-                moves([ii ii+1])=[];
+                if moves(ii)=='y'; moves(ii)=[]; else moves([ii ii+1])=[]; end
                 for jj=ii:length(moves)
                     switch moves(jj)
                         case 'F'; moves(jj)='L';
@@ -288,11 +292,15 @@ function moves=solve2x2(colors)
                         case 'l'; moves(jj)='b';
                         case 'R'; moves(jj)='F';
                         case 'r'; moves(jj)='f';
+                        case 'X'; moves(jj)='Z';
+                        case 'x'; moves(jj)='z';
+                        case 'Z'; moves(jj)='x';
+                        case 'z'; moves(jj)='X';
                     end
                 end
-            elseif strcmp(moves([ii ii+1]),'fB') || strcmp(moves([ii ii+1]),'Bf')
+            elseif strcmp(moves([ii ii+1]),'fB') || strcmp(moves([ii ii+1]),'Bf') || moves(ii)=='z'
                 found=1;
-                moves([ii ii+1])=[];
+                if moves(ii)=='z'; moves(ii)=[]; else moves([ii ii+1])=[]; end
                 for jj=ii:length(moves)
                     switch moves(jj)
                         case 'U'; moves(jj)='R';
@@ -303,11 +311,15 @@ function moves=solve2x2(colors)
                         case 'l'; moves(jj)='u';
                         case 'R'; moves(jj)='D';
                         case 'r'; moves(jj)='d';
+                        case 'X'; moves(jj)='y';
+                        case 'x'; moves(jj)='Y';
+                        case 'Y'; moves(jj)='X';
+                        case 'y'; moves(jj)='x';
                     end
                 end
-            elseif strcmp(moves([ii ii+1]),'Fb') || strcmp(moves([ii ii+1]),'bF')
+            elseif strcmp(moves([ii ii+1]),'Fb') || strcmp(moves([ii ii+1]),'bF') || moves(ii)=='Z'
                 found=1;
-                moves([ii ii+1])=[];
+                if moves(ii)=='Z'; moves(ii)=[]; else moves([ii ii+1])=[]; end
                 for jj=ii:length(moves)
                     switch moves(jj)
                         case 'U'; moves(jj)='L';
@@ -318,11 +330,15 @@ function moves=solve2x2(colors)
                         case 'l'; moves(jj)='d';
                         case 'R'; moves(jj)='U';
                         case 'r'; moves(jj)='u';
+                        case 'X'; moves(jj)='Y';
+                        case 'x'; moves(jj)='y';
+                        case 'Y'; moves(jj)='x';
+                        case 'y'; moves(jj)='X';
                     end
                 end
-            elseif strcmp(moves([ii ii+1]),'lR') || strcmp(moves([ii ii+1]),'Rl')
+            elseif strcmp(moves([ii ii+1]),'lR') || strcmp(moves([ii ii+1]),'Rl') || moves(ii)=='X'
                 found=1;
-                moves([ii ii+1])=[];
+                if moves(ii)=='X'; moves(ii)=[]; else moves([ii ii+1])=[]; end
                 for jj=ii:length(moves)
                     switch moves(jj)
                         case 'U'; moves(jj)='F';
@@ -333,11 +349,15 @@ function moves=solve2x2(colors)
                         case 'f'; moves(jj)='d';
                         case 'B'; moves(jj)='U';
                         case 'b'; moves(jj)='u';
+                        case 'Y'; moves(jj)='Z';
+                        case 'y'; moves(jj)='z';
+                        case 'Z'; moves(jj)='y';
+                        case 'z'; moves(jj)='Y';
                     end
                 end
-            elseif strcmp(moves([ii ii+1]),'Lr') || strcmp(moves([ii ii+1]),'rL')
+            elseif strcmp(moves([ii ii+1]),'Lr') || strcmp(moves([ii ii+1]),'rL') || moves(ii)=='x'
                 found=1;
-                moves([ii ii+1])=[];
+                if moves(ii)=='x'; moves(ii)=[]; else moves([ii ii+1])=[]; end
                 for jj=ii:length(moves)
                     switch moves(jj)
                         case 'U'; moves(jj)='B';
@@ -348,6 +368,10 @@ function moves=solve2x2(colors)
                         case 'f'; moves(jj)='u';
                         case 'B'; moves(jj)='D';
                         case 'b'; moves(jj)='d';
+                        case 'Y'; moves(jj)='z';
+                        case 'y'; moves(jj)='Z';
+                        case 'Z'; moves(jj)='Y';
+                        case 'z'; moves(jj)='y';
                     end
                 end
             end
@@ -357,7 +381,7 @@ function moves=solve2x2(colors)
         while ii<=length(moves)-2 % tripla forgatas helyett inkabb masik irany
             if moves(ii)==moves(ii+1) && moves(ii+1)==moves(ii+2)
                 found=1;
-                if moves(ii)>90; moves(ii)=moves(ii)-32; else; moves(ii)=moves(ii)+32; end
+                if moves(ii)>90; moves(ii)=moves(ii)-32; else moves(ii)=moves(ii)+32; end
                 moves([ii+1 ii+2])=[];
             end
             ii=ii+1;
