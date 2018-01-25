@@ -396,3 +396,6 @@ function moves=solve2x2(colors)
             end
         end
     end
+    if moves(end)=='X' || moves(end)=='x' || moves(end)=='Y' || moves(end)=='y' || moves(end)=='Z' || moves(end)=='z'
+        moves(end)=[];
+    end

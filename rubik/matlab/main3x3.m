@@ -12,7 +12,7 @@ start(:,:,6)=['B' 'B' 'B';'B' 'B' 'B';'B' 'B' 'B']; % hatso
 %% KEVERES (ures vektor eseten veletlen keveres)
 N=20; % egy veletlen keveres hossza
 scrmbl=[];
-% scrmbl='rDUyLBRlZbulDbdLLUYX';
+% scrmbl='LzBBFbXXyZxFyxrdxBby';
 
 %% KEZDOALLAS KIRAJZOLASA
 draw(start,1);

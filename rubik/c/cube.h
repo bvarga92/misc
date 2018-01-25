@@ -10,5 +10,6 @@
 	void move(const char *seq, cube_t *cube);
 	void randomScramble(char *scrmbl, unsigned length);
 	unsigned solve2x2(const cube_t *cube, char **moves);
+	unsigned solve3x3(const cube_t *cube, char **moves);
 
 #endif
