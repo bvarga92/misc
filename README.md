@@ -1,5 +1,6 @@
 # Vegyes forráskódok
 
+- **cardioid**: kardioid, nefroid és egyéb kausztikus görbék
 - **fem_waveguide**: végeselemes szimuláció az elektromágneses hullám csõtápvonalban való terjedésére  ([videó](https://www.youtube.com/watch?v=mLOpLBptPcE&list=PL9_VlVdB8s882QMHiqJlDpJeKWxwP5CIG))
 - **java_minesweeper**: aknakeresõ játék Javában
 - **java_pong**: pingpong játék Javában
