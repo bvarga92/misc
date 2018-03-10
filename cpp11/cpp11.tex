@@ -1,0 +1,455 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{anysize}
+\usepackage{listings}
+\usepackage{color}
+
+
+\marginsize{15mm}{15mm}{15mm}{15mm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{10pt}
+
+
+\lstset{
+	backgroundcolor=\color[rgb]{1,1,1},
+	basicstyle=\footnotesize\ttfamily,
+	breakatwhitespace=false,
+	breaklines=true,
+	rulecolor=\color[rgb]{0,0,0},
+	keepspaces=true,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=2,
+	aboveskip=3pt,
+	belowskip=3pt,
+	columns=fixed
+}
+\lstdefinestyle{CPP_CODE}{
+	language=[11]C++,
+	keywordstyle=\color[rgb]{0,0,1},
+	commentstyle=\color[rgb]{0,0.6,0},
+	stringstyle=\color[rgb]{0.58,0,0.82},
+	deletekeywords={},
+	morekeywords={}
+}
+\lstdefinelanguage{none}{
+	identifierstyle=
+}
+
+
+\title{Summary of new features in C\texttt{++}11\vspace{-2ex}}
+\author{Bal\'{a}zs Varga}
+\date{\vspace{-5ex}}
+
+\begin{document}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Automatic object type deduction}
+
+Syntax: \lstinline[style=CPP_CODE]|auto variable=initializer| and \lstinline[style=CPP_CODE]|decltype(expression)|
+
+When using the \lstinline[style=CPP_CODE]{auto} keyword as a variable type specifier, the actual type of the variable will be deduced from the initializer. In simultaneous declarations, the deduced types must match. It is possible to combine \lstinline[style=CPP_CODE]{auto} with modifiers such as \lstinline[style=CPP_CODE]{const} or \lstinline[language=none]{&}. Furthermore, C\texttt{++}11 provides a way to obtain the type of a variable using the \lstinline[style=CPP_CODE]{decltype} keyword. For functions, \lstinline[style=CPP_CODE]{auto} can be used to indicate trailing return type (see below).
+
+In standard C, the \lstinline[style=CPP_CODE]{auto} keyword is a storage duration specifier. As of C\texttt{++}11, this semantic is removed.
+
+Examples:
+\vspace{10pt}
+\lstset{style=CPP_CODE}
+\begin{lstlisting}
+auto x; //error: no initializer
+auto x=5, y=6; //OK, deduced type is int
+auto x=5.0; //OK, deduced type is double
+auto x=5, y=6.0; //error: conflicting types
+
+std::multimap<std::string, int> mm;
+std::multimap<std::string, int>::iterator it=mm.begin(); //this is tedious
+auto it=mm.begin(); //much simpler
+decltype(mm.begin()) it=mm.begin(); //this also works with typedef
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Trailing return type}
+
+Syntax: \lstinline[style=CPP_CODE]|auto|\lstinline[language=none]| function(argument list) -> return type|
+
+C\texttt{++}11 allows function templates to be fully generalized even if the return type depends on the types of the arguments.
+
+Example:
+\vspace{10pt}
+\lstset{style=CPP_CODE}
+\begin{lstlisting}
+template<typename T_a, typename T_b>
+auto add(T_a a, T_b b)->decltype(a+b){
+    return a+b;
+}
+\end{lstlisting}
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Lambda expressions}
+
+Syntax: \lstinline[language=none]|[capture clause] (parameters) -> return type {body}|
+
+Lambda expressions are unnamed functions, usually defined inline, at the place of the call. They improve readibility and security by eliminating the need to define a multitude of small functions and function objects.
+
+Lambdas can access (or \emph{capture}) variables from the enclosing scope, either by value, or by reference. The capture clause is a comma-separated list of these variables. Alternatively, \lstinline[language=none]|[=]| or \lstinline[language=none]|[&]| can be used to capture all variables accessed in the body of the lambda by value or by reference, respectively. The capture list may be empty, but the square brackets cannot be omitted.
+
+The parameter list is the same as in ordinary functions. The parentheses can be omitted if the lambda has no parameters.
+
+The return type can also be omitted, in which case it will be automatically deduced from the return statement.
+
+Example:
+\vspace{10pt}
+\lstset{style=CPP_CODE}
+\begin{lstlisting}
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+	
+int main(){
+    char str[]="the quick brown fox jumps over the lazy dog";
+    int oCount=0;
+    for_each(str, str+sizeof(str), [&oCount](char c)->void{
+        if(c=='o') oCount++;
+    });
+    cout<<"The letter \"o\" occurs "<<oCount<<" times."<<endl; //4
+    
+    auto lambda=[](int x){return x*2;}; //named closure type
+    cout<<lambda(5)<<endl; //10
+    
+    return 0;
+}
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{List initialization}
+
+Syntax: \lstinline[language=none]|type variable {initializer list}|;
+
+C\texttt{++}11 introduces a uniform initialization syntax for arrays, structures, classes and container types. List initialization can be used even for arrays dynamically allocated using \lstinline[style=CPP_CODE]|new[]|. Furthermore, functions can take and return initialization lists.
+
+\clearpage
+
+Example:
+\vspace{10pt}
+\lstset{style=CPP_CODE}
+\begin{lstlisting}
+#include <iostream>
+#include <string>
+#include <vector>
+#include <map>
+
+using namespace std;
+
+typedef struct{string name; int age;} person_t;
+
+void f(vector<int> v){
+    for(auto e: v) cout<<e<<" ";
+    cout<<endl;
+}
+
+vector<string> initArray(){
+    return {"this","is","returned"};
+}
+
+int main(){
+    int  a1[5] {1,2,3,4,5}; //works for POD arrays
+    int* a2=new int[5] {1,2,3,4,5}; //even if allocated with new
+    vector<string> v1 {"hello", "world"}; //container types
+    map<string,string> m {{"Bambi","fawn"}, {"Garfield","cat"}, {"ET","alien"}};
+    person_t p {"Eric Cartman",8}; //structs and classes
+    f({10, 9, 8}); //function arguments
+    vector<string> v2=initArray(); //function return values
+
+    for(auto e: v1) cout<<e<<" ";
+    cout<<endl;
+    for(auto e: v2) cout<<e<<" ";
+    cout<<endl;
+    for(auto e: m) cout<<e.first<<" is "<<e.second<<endl;
+    cout<<p.name<<" is "<<p.age<<" years old."<<endl;
+    return 0;
+}
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Delegating constructors}
+
+Syntax: \lstinline[language=none]|ClassName(argument list) : ClassName(different argument list)|
+
+In C\texttt{++}11, constructors can call other constructors of the same class, making it possible to concentrate common initializations in one (\emph{target}) constructor, which results in a more robust, readable and maintainable code. Delegating chains are also allowed -- i.e. a delegating constructor can become the target of another delegating constructor. Hovewer, recursion is forbidden: a constructor cannot delegate to itself, neither directly, nor indirectly.
+
+\clearpage
+
+Example:
+\vspace{10pt}
+\lstset{style=CPP_CODE}
+\begin{lstlisting}
+#include <iostream>
+
+using namespace std;
+
+class C{
+    public:
+        int i;
+        C(int a) : i(a) {}
+        C(int a, int b): C(a+b) {} //delegates to C(int)
+        C(int a, int b, int c): C(a,b*c) {} //delegates to C(int,int)
+};
+
+int main(){
+    C c1(3), c2(3,4), c3(3,4,5);
+    cout<<c1.i<<endl; //3
+    cout<<c2.i<<endl; //7
+    cout<<c3.i<<endl; //23
+    return 0;
+}
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Explicitly defaulted and deleted functions}
+
+Syntax: \lstinline[style=CPP_CODE]|function(argument list)=default;| and \lstinline[style=CPP_CODE]|function(argument list)=delete;|
+
+Appending the \lstinline[style=CPP_CODE]|=default;| specifier to the end of a function declaration instructs the compiler to generate the default implementation for that function. Naturally, this cannot be done for any function: it must be a special member function, and it cannot have any default arguments. Typical use-cases include the copy constructor and the copy operator. Note that unless the programmer provides their own implementations for these functions, the compiler will always implicitly generate them even without explicit defaulting. However, a defaulted function has a declaration, therefore the programmer has control over its access rules and other special aspects (e.g. it is possible to make a copy constructor protected, or to generate a default virtual destructor).
+
+Similarly, the \lstinline[style=CPP_CODE]|=delete;| specifier can be used to disable the usage of a function. This is useful for disabling certain implicit type conversions, and for creating uncopyable classes.
+
+Example:
+\vspace{10pt}
+\lstset{style=CPP_CODE}
+\begin{lstlisting}
+#include <iostream>
+
+using namespace std;
+
+class C{
+    public:
+        int i;
+        C() : i(3) {}
+        C(int a) : i(a) {}
+        C(double)=delete;
+        C(const C&)=delete;
+        C& operator=(const C&)=delete;
+};
+
+class D{
+    public:
+        int i;
+        D(int a) : i(a) {}
+        D()=default;
+        D(const D&)=default;
+        D& operator=(const D&)=default;
+        ~D()=default;
+};
+
+int main(){
+    C c1;      //OK: default constructor, i=3
+    C c2(5);   //OK: constructor with int parameter, i=5
+    C c3(5.0); //error: using deleted C(double) constructor
+    C c4(c1);  //error: using deleted copy constructor
+    c2=c1;     //error: using deleted operator=
+
+    D d1;      //default constructor, i=?
+    D d2(8);   //constructor with int parameter i=8
+    D d3(d2);  //default copy constructor, i=8
+    d3=d2;     //default operator=, i=8
+
+    return 0;
+}
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Rvalue references}
+
+Syntax: \lstinline[language=none]|type&& name|
+
+In C\texttt{++}11, references can bind to rvalues, which is most useful for the purpose of implementing movable classes. It is now possible to overload the copy constructor and the assignment operator so that they can be called on rvalues. The function \lstinline[language=none]|std::move()| can be used to cast a variable into an rvalue reference.
+
+An important use-case is in-place sorting algorithms: swapping elements without making deep copies becomes very simple for any type that implements move semantics (i.e. it overloads its copy constructor and assignment operator to take rvalue arguments).
+
+Example:
+\vspace{10pt}
+\lstset{style=CPP_CODE}
+\begin{lstlisting}
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+/* this class implements move semantics */
+class Movable{
+    Movable(const Movable&); //copy constructor
+    Movable(Movable&&); //move constructor
+    Movable& operator=(const Movable&); //copy operator
+    Movable& operator=(Movable&&); //move operator
+};
+
+/* temp is a deep copy of a, but will be discarded */
+template<class T>
+void swapNaive(T& a, T& b){
+    T temp=a;
+    a=b;
+    b=temp;
+}
+
+/* if T is moveable, then this is more efficient */
+template<class T>
+void swapSmart(T& a, T& b){
+    T temp=move(a);
+    a=move(b);
+    b=move(temp);
+}
+
+int main(){
+    string a="hello", b="world";
+    swapNaive<string>(a,b);
+    cout<<a<<" "<<b<<endl; //world hello
+    swapSmart<string>(a,b);
+    cout<<a<<" "<<b<<endl; //hello world
+    return 0;
+}
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Multithreading}
+
+The C\texttt{++}11 Standard Library provides programmers with multithreading support. Threads can be created from functions and callable objects (instances of classes that overload the \lstinline[language=none]|()| operator). The multithreading API implements the usual thread management functions (join, yield, sleep), synchronization tools (mutexes, condition variables, futures and promises), atomic types and thread local variables.
+
+Example:
+\vspace{10pt}
+\lstset{style=CPP_CODE}
+\begin{lstlisting}
+#include <iostream>
+#include <thread>
+#include <chrono>
+
+using namespace std;
+
+void f1(){
+    for(int i=0;i<5;i++){
+        cout<<"Hello from f1!"<<endl;
+        this_thread::sleep_for(chrono::milliseconds(10));
+    }
+}
+
+void f2(){
+    for(int i=0;i<5;i++){
+        cout<<"Hello from f2!"<<endl;
+        this_thread::sleep_for(chrono::milliseconds(10));
+    }
+}
+
+class C{
+    public:
+        int i;
+
+        C(int x) : i(x) {}
+
+        void operator()(){
+            cout<<"Hello from an instance of C! ";
+            cout<<"Parameter is "<<i<<"."<<endl;
+            this_thread::sleep_for(chrono::milliseconds(10));
+        }
+};
+
+int main(){
+    C c1(3), c2(5);
+    thread t1(f1), t2(f2);
+    t1.join();
+    t2.join();
+    thread t3(c1), t4(c2);
+    t3.join();
+    t4.join();
+    cout<<thread::hardware_concurrency()<<endl; //max concurrent threads
+    return 0;
+}
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Nullptr}
+
+C\texttt{++}11 introduces a strongly typed keyword for the null pointer, which is no longer just a macro for the integer literal 0.
+
+Example:
+\vspace{10pt}
+\lstset{style=CPP_CODE}
+\begin{lstlisting}
+#include <iostream>
+
+using namespace std;
+
+void f(int  a, int  b){ cout<<"1 is called."<<endl; }
+void f(int* a, int  b){ cout<<"2 is called."<<endl; }
+
+int main(){
+	f(0,0); //calls 1, but ambiguous
+	f(nullptr,0); //calls 2
+	f(nullptr,nullptr); //error: no matching declaration
+	return 0;
+}
+\end{lstlisting}
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{New smart pointers}
+
+C\texttt{++}98 introduced a smart pointer template called \lstinline[style=CPP_CODE]|auto_ptr|, in order to make the management of dynamically allocated objects safer. A smart pointer automatically deletes the managed object when the pointer itself is destroyed, thus preventing memory leak. Furthermore, \lstinline[style=CPP_CODE]|auto_ptr| takes exclusive ownership of the object: no more than one \lstinline[style=CPP_CODE]|auto_ptr| can point to an object at the same time.
+
+In C\texttt{++}11, \lstinline[style=CPP_CODE]|auto_ptr| is now deprecated, and is replaced by \lstinline[style=CPP_CODE]|unique_ptr|, which has very similar functionality, but its copy constructor is deleted, therefore a simple assignment cannot leave the pointer dangling.
+
+There are two more smart pointers in C\texttt{++}11: \lstinline[style=CPP_CODE]|shared_ptr| and \lstinline[style=CPP_CODE]|weak_ptr|. As its name suggests, \lstinline[style=CPP_CODE]|shared_ptr| does not take exclusive ownership of the managed object -- multiple \lstinline[style=CPP_CODE]|shared_ptr|s can point to the same destination. A \lstinline[style=CPP_CODE]|weak_ptr| holds a non-owning reference to an object that is managed by a \lstinline[style=CPP_CODE]|shared_ptr|. The destination of a \lstinline[style=CPP_CODE]|weak_ptr| may be deallocated by someone else at any time, and the \lstinline[style=CPP_CODE]|weak_ptr| can detect this.
+
+Examples:
+\vspace{10pt}
+\lstset{style=CPP_CODE}
+\begin{lstlisting}
+/* auto_ptr (now deprecated) has exclusive ownership */
+auto_ptr<string> ap1(new string("hello"));
+cout<<*ap1<<endl; //hello
+auto_ptr<string> ap2=ap1; //ownership is transferred
+cout<<*ap2<<endl; //hello
+cout<<*ap1<<endl; //runtime error (segmentation fault)
+
+/* unique_ptr is like auto_ptr, but more secure */
+unique_ptr<string> up1(new string("hello"));
+cout<<*up1<<endl; //hello
+unique_ptr<string> up2=up1; //compile error (copy operator is deleted)
+unique_ptr<string> up3=move(up1); //OK, behaves like auto_ptr
+cout<<*up3<<endl; //hello
+cout<<*up1<<endl; //runtime error (segmentation fault)
+
+/* shared_ptr does not take exclusive ownership of the object */
+shared_ptr<string> sp1(new string("hello"));
+shared_ptr<string> sp2=sp1;
+cout<<*sp1<<endl; //hello
+cout<<*sp2<<endl; //hello
+
+/* weak_ptr does not take ownership */
+shared_ptr<string> sp3(new string("hello"));
+weak_ptr<string> wp1=sp3;
+cout<<wp1.expired()<<endl; //0
+cout<<*(wp1.lock())<<endl; //hello
+sp3.reset(new string("hello2")); //old target is deleted
+cout<<wp1.expired()<<endl; //1
+cout<<*(wp1.lock())<<endl; //runtime error (segmentation fault)
+weak_ptr<string> wp2=sp3; //points to new data
+cout<<*(wp2.lock())<<endl; //hello2
+\end{lstlisting}
+
+
+\end{document}
