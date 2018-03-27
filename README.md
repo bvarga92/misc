@@ -1,5 +1,6 @@
 # Vegyes forráskódok
 
+- **arbitrary_precision_arithmetic**: tetszõlegesen nagy egész számokat kezelõ aritmetikai könyvtár
 - **cardioid**: kardioid, nefroid és egyéb kausztikus görbék
 - **cpp11**: rövid összefoglaló a C++11 nyelv fontosabb újdonságairól
 - **fem_waveguide**: végeselemes szimuláció az elektromágneses hullám csõtápvonalban való terjedésére  ([videó](https://www.youtube.com/watch?v=mLOpLBptPcE&list=PL9_VlVdB8s882QMHiqJlDpJeKWxwP5CIG))
