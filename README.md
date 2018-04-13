@@ -26,9 +26,9 @@
 - **opt_simulated_annealing.m**: optimalizáció szimulált lehûtéssel
 - **parametric_curves.m**: paraméteres görbék és felületek ábrázolása MATLAB-ban
 - **rollingshutter.m**: soronkénti letapogatást végzõ fényképezõgépek által okozott torzítás illusztrálása
-- **rungekutta_double_pendulum.m**: kettõs inga differenciálegyenletének megoldása Runge-Kutta-módszerrel
-- **rungekutta_pendulum.m**: matematikai inga differenciálegyenletének megoldása Runge-Kutta-módszerrel
-- **rungekutta_spring_pendulum.m**: rugóval csatolt ingák differenciálegyenletének megoldása Runge-Kutta-módszerrel
+- **rungekutta_euler_double_pendulum.m**: kettõs inga szimulációja Runge-Kutta- és Euler-módszerrel
+- **rungekutta_euler_pendulum.m**: matematikai inga szimulációja Runge-Kutta- és Euler-módszerrel
+- **rungekutta_euler_spring_pendulum.m**: rugóval csatolt ingák  szimulációja Runge-Kutta- és Euler-módszerrel
 - **search_sort.c**: néhány keresési és rendezési algoritmus
 - **taylor_series.m**: tetszõleges függvény Taylor-soros közelítésének számítása és ábrázolása
 - **wsock.c**: socket demó Windows alatt (HTTP lekérdezés)
