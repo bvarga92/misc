@@ -3,10 +3,10 @@
 - **arbitrary_precision_arithmetic**: tetszõlegesen nagy egész számokat kezelõ aritmetikai könyvtár
 - **cardioid**: kardioid, nefroid és egyéb kausztikus görbék
 - **cpp11**: rövid összefoglaló a C++11 nyelv fontosabb újdonságairól
-- **fem_waveguide**: végeselemes szimuláció az elektromágneses hullám csõtápvonalban való terjedésére  ([videó](https://www.youtube.com/watch?v=mLOpLBptPcE&list=PL9_VlVdB8s882QMHiqJlDpJeKWxwP5CIG))
 - **java_minesweeper**: aknakeresõ játék Javában
 - **java_pong**: pingpong játék Javában
 - **moire**: interaktív MATLAB illusztráció a Moiré-jelenség keletkezéséhez
+- **numerical**: numerikus módszerek
 - **qft**: a kvantum Fourier-transzformáció bemutatása
 - **rubik**: Rubik-kocka kirakó program MATLAB és C nyeven, OpenCV alapú színfelismeréssel ([videó](https://www.youtube.com/watch?v=PGJQEivd0R0&list=PL9_VlVdB8s882QMHiqJlDpJeKWxwP5CIG))
 - **stegano**: szöveg elrejtése képfájlban (szteganográfia)
@@ -26,9 +26,6 @@
 - **opt_simulated_annealing.m**: optimalizáció szimulált lehûtéssel
 - **parametric_curves.m**: paraméteres görbék és felületek ábrázolása MATLAB-ban
 - **rollingshutter.m**: soronkénti letapogatást végzõ fényképezõgépek által okozott torzítás illusztrálása
-- **rungekutta_euler_double_pendulum.m**: kettõs inga szimulációja Runge-Kutta- és Euler-módszerrel
-- **rungekutta_euler_pendulum.m**: matematikai inga szimulációja Runge-Kutta- és Euler-módszerrel
-- **rungekutta_euler_spring_pendulum.m**: rugóval csatolt ingák  szimulációja Runge-Kutta- és Euler-módszerrel
 - **search_sort.c**: néhány keresési és rendezési algoritmus
 - **taylor_series.m**: tetszõleges függvény Taylor-soros közelítésének számítása és ábrázolása
 - **wsock.c**: socket demó Windows alatt (HTTP lekérdezés)
