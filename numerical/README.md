@@ -7,7 +7,7 @@
 - **fdm_string1_ideal.m**: veszteségmentes húr rezgésének szimulációja végesdifferencia-módszerrel
 - **fdm_string2_damp.m**: veszteséges húr rezgésének szimulációja végesdifferencia-módszerrel
 - **fdm_string3_propagation.m**: terjedõ hullám szimulációja végesdifferencia-módszerrel
-- **gps.m**: navigációs egyenletek megoldása, GPS pozicionálás 4 mûhold alapján
+- **lm_gps.m**: GPS pozicionálás 4 mûhold alapján, navigációs egyenletek megoldása Levenberg-Marquardt-algoritmussal
 - **rungekutta_celestial1.m**: kis tömegû égitest keringésének szimulációja
 - **rungekutta_celestial2.m**: két égitest csatolt mozgásának szimulációja
 - **rungekutta_celestial3.m**: három égitest csatolt mozgásának szimulációja
