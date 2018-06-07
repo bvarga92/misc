@@ -2,12 +2,14 @@
 
 - **fem_waveguide**: végeselemes szimuláció az elektromágneses hullám csõtápvonalban való terjedésére  ([videó](https://www.youtube.com/watch?v=mLOpLBptPcE&list=PL9_VlVdB8s882QMHiqJlDpJeKWxwP5CIG))
 - **fdm_brusselator.m**: Turing-mintázatok képzõdése reakció-diffúzió rendszerben
+- **fdm_drum.m**: kör alakú membrán lengésének szimulációja végesdifferencia-módszerrel
 - **fdm_heat1.m**: 1D homogén hõvezetési egyenlet megoldása végesdifferencia-módszerrel
 - **fdm_heat2.m**: 2D homogén hõvezetési egyenlet megoldása végesdifferencia-módszerrel
 - **fdm_string1_ideal.m**: veszteségmentes húr rezgésének szimulációja végesdifferencia-módszerrel
 - **fdm_string2_damp.m**: veszteséges húr rezgésének szimulációja végesdifferencia-módszerrel
 - **fdm_string3_propagation.m**: terjedõ hullám szimulációja végesdifferencia-módszerrel
 - **lm_gps.m**: GPS pozicionálás 4 mûhold alapján, navigációs egyenletek megoldása Levenberg-Marquardt-algoritmussal
+- **rungekutta_bessel.m**: Bessel-függvények elõállítása Runge-Kutta-módszerrel
 - **rungekutta_celestial1.m**: kis tömegû égitest keringésének szimulációja
 - **rungekutta_celestial2.m**: két égitest csatolt mozgásának szimulációja
 - **rungekutta_celestial3.m**: három égitest csatolt mozgásának szimulációja
