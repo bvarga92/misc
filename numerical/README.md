@@ -2,7 +2,7 @@
 
 - **fem_waveguide**: végeselemes szimuláció az elektromágneses hullám csõtápvonalban való terjedésére  ([videó](https://www.youtube.com/watch?v=mLOpLBptPcE&list=PL9_VlVdB8s882QMHiqJlDpJeKWxwP5CIG))
 - **fdm_brusselator.m**: Turing-mintázatok képzõdése reakció-diffúzió rendszerben
-- **fdm_drum_circ.m**: kör alakú membrán rezgésének szimulációja végesdifferencia-módszerrel, hengerkoordinátarendszerben
+- **fdm_drum_circ.m**: kör alakú membrán rezgésének szimulációja végesdifferencia-módszerrel, hengerkoordinátákkal
 - **fdm_drum_rect.m**: téglalp alakú membrán rezgésének szimulációja végesdifferencia-módszerrel
 - **fdm_heat1.m**: 1D homogén hõvezetési egyenlet megoldása végesdifferencia-módszerrel
 - **fdm_heat2.m**: 2D homogén hõvezetési egyenlet megoldása végesdifferencia-módszerrel
