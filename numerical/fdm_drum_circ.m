@@ -3,16 +3,17 @@ clc;
 
 %% parameterek
 maxIter=15000;
-dt=0.002;
+dt=0.001;
 Nr=15;
 Ntheta=15;
 c=0.2;
 
-%% kezdeti feltetel: a membran kezdeti alakja
+%% kezdeti feltetel: a membran kezdeti alakja ( z(r,theta,t=0)=f(r,theta) )
 z=zeros(Nr,Ntheta);
 for ir=1:Nr-1
     for itheta=1:Ntheta
-        z(ir,itheta)=cos(0.5*pi*(ir-1)/(Nr-1));
+        %z(ir,itheta)=cos(0.5*pi*(ir-1)/(Nr-1));
+        z(ir,itheta)=cos(1.5*pi*(ir-1)/(Nr-1))*(Nr-ir)/Nr;
     end
 end
 
@@ -28,12 +29,12 @@ zprev=z;
 for it=1:maxIter
     for ir=1:Nr-1
         for itheta=1:Ntheta
-            if ir==1 % origoban specialisan kell szamolni a derivaltakat
-                laplaceZ=2*(z(2,itheta)-z(1,itheta))/dr^2;
+            if ir==1 % az origoban a Laplace-operatornak szingularitasa van
+                laplaceZ=4*(z(2,itheta)-z(1,itheta))/dr^2;
             elseif ir==Nr-1 % peremfeltetelt kell ervenyesiteni
-                laplaceZ=(z(ir-1,itheta)-2*z(ir,itheta))/dr^2-z(ir,itheta)/(dr*(ir-1)*dr)+(z(ir,(itheta~=1)*(itheta-1)+(itheta==1)*Ntheta)-2*z(ir,itheta)+z(ir,(itheta~=Ntheta)*(itheta+1)+(itheta==Ntheta)*1))/(dtheta^2*((ir-1)*dr)^2);
+                laplaceZ=(z(ir-1,itheta)-2*z(ir,itheta))/dr^2-z(ir-1,itheta)/(2*dr*(ir-1)*dr)+(z(ir,(itheta~=1)*(itheta-1)+(itheta==1)*Ntheta)-2*z(ir,itheta)+z(ir,(itheta~=Ntheta)*(itheta+1)+(itheta==Ntheta)*1))/(dtheta^2*((ir-1)*dr)^2);
             else % altalanos belso pont
-                laplaceZ=(z(ir-1,itheta)-2*z(ir,itheta)+z(ir+1,itheta))/dr^2+(z(ir+1,itheta)-z(ir,itheta))/(dr*(ir-1)*dr)+(z(ir,(itheta~=1)*(itheta-1)+(itheta==1)*Ntheta)-2*z(ir,itheta)+z(ir,(itheta~=Ntheta)*(itheta+1)+(itheta==Ntheta)*1))/(dtheta^2*((ir-1)*dr)^2);
+                laplaceZ=(z(ir-1,itheta)-2*z(ir,itheta)+z(ir+1,itheta))/dr^2+(z(ir+1,itheta)-z(ir-1,itheta))/(2*dr*(ir-1)*dr)+(z(ir,(itheta~=1)*(itheta-1)+(itheta==1)*Ntheta)-2*z(ir,itheta)+z(ir,(itheta~=Ntheta)*(itheta+1)+(itheta==Ntheta)*1))/(dtheta^2*((ir-1)*dr)^2);
             end
             temp=z(ir,itheta);
             z(ir,itheta)=c^2*dt^2*laplaceZ+2*z(ir,itheta)-zprev(ir,itheta);
