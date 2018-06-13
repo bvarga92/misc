@@ -7,6 +7,7 @@
 - **java_pong**: pingpong játék Javában
 - **moire**: interaktív MATLAB illusztráció a Moiré-jelenség keletkezéséhez
 - **numerical**: numerikus módszerek
+- ***ptrace_demo*: példák a ptrace használatára (csak x64)
 - **qft**: a kvantum Fourier-transzformáció bemutatása
 - **rubik**: Rubik-kocka kirakó program MATLAB és C nyeven, OpenCV alapú színfelismeréssel ([videó](https://www.youtube.com/watch?v=PGJQEivd0R0&list=PL9_VlVdB8s882QMHiqJlDpJeKWxwP5CIG))
 - **stegano**: szöveg elrejtése képfájlban (szteganográfia)
