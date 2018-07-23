@@ -7,8 +7,10 @@
 
 clear all;
 clc;
+
 pdemodel;
 pause;
+
 hw=newplot;
 h=get(hw,'Parent');
 set(h,'Renderer','zbuffer','Position',[400 100 800 800]);

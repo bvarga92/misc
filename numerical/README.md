@@ -18,3 +18,4 @@
 - **rungekutta_euler_double_pendulum.m**: kettõs inga szimulációja Runge-Kutta- és Euler-módszerrel
 - **rungekutta_euler_pendulum.m**: matematikai inga szimulációja Runge-Kutta- és Euler-módszerrel
 - **rungekutta_euler_spring_pendulum.m**: rugóval csatolt ingák  szimulációja Runge-Kutta- és Euler-módszerrel
+- **rungekutta_general.m**: negyedrendû Runge-Kutta-módszer általános, vektoros implementációja
