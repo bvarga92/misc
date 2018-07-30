@@ -26,7 +26,7 @@
 - **ntp.go**: NTP-HTTP gateway Go nyelven
 - **opt_particle_swarm.m**: optimalizáció particle swarm algoritmussal
 - **opt_simulated_annealing.m**: optimalizáció szimulált lehûtéssel
-- **parametric_curves.m**: paraméteres görbék és felületek ábrázolása MATLAB-ban
+- **python3_snippets.ipynb**: érdekes Python 3 kódrészletek
 - **rollingshutter.m**: soronkénti letapogatást végzõ fényképezõgépek által okozott torzítás illusztrálása
 - **search_sort.c**: néhány keresési és rendezési algoritmus
 - **taylor_series.m**: tetszõleges függvény Taylor-soros közelítésének számítása és ábrázolása
