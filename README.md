@@ -15,6 +15,7 @@
 - **avltree.c**: egyszerû bináris fa és önkiegyensúlyozó AVL-fa összehasonlítása
 - **bode_asymptotic.m**: folytonos idejû átviteli függvény törtvonalas közelítõ Bode-diagramjának megrajzolása
 - **conway.c**: Conway-féle sejtautomata
+- **ctest.py**: C kód tesztelése Pythonban
 - **huffman.c**: szöveg karaktereinek Huffman-kódolása bináris fával
 - **keylogger.c**: billentyûleütés-naplózó Windows alá (oktatási célra!)
 - **knight_nonrecursive.c**: sakktábla két mezeje közötti lóugrás-út keresése nonrekurzív backtrack algoritmussal
