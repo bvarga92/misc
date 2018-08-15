@@ -31,5 +31,5 @@
 - **rollingshutter.m**: soronkénti letapogatást végzõ fényképezõgépek által okozott torzítás illusztrálása
 - **search_sort.c**: néhány keresési és rendezési algoritmus
 - **taylor_series.m**: tetszõleges függvény Taylor-soros közelítésének számítása és ábrázolása
-- **weather.ipynb**: OpenWeatherMap API használata Pythonban
+- **weather.c és weather.ipynb**: OpenWeatherMap API használata C-ben és Pythonban
 - **wsock.c**: socket demó Windows alatt (HTTP lekérdezés)
