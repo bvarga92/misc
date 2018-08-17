@@ -17,6 +17,7 @@
 - **conway.c**: Conway-féle sejtautomata
 - **ctest.py**: C kód tesztelése Pythonban
 - **huffman.c**: szöveg karaktereinek Huffman-kódolása bináris fával
+- **keepawake.vbs**: billentyûleütéseket szimuláló szkript a PC ébren tartásához
 - **keylogger.c**: billentyûleütés-naplózó Windows alá (oktatási célra!)
 - **knight_nonrecursive.c**: sakktábla két mezeje közötti lóugrás-út keresése nonrekurzív backtrack algoritmussal
 - **knight_recursive.c**: sakktábla két mezeje közötti lóugrás-út keresése rekurzív backtrack algoritmussal
@@ -31,5 +32,5 @@
 - **rollingshutter.m**: soronkénti letapogatást végzõ fényképezõgépek által okozott torzítás illusztrálása
 - **search_sort.c**: néhány keresési és rendezési algoritmus
 - **taylor_series.m**: tetszõleges függvény Taylor-soros közelítésének számítása és ábrázolása
-- **weather.c** és **weather.ipynb**: OpenWeatherMap API használata C-ben és Pythonban
+- **weather.c**, **weather.go** és **weather.ipynb**: OpenWeatherMap API használata (C, Go és Python példa)
 - **wsock.c**: socket demó Windows alatt (HTTP lekérdezés)

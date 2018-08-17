@@ -187,7 +187,7 @@ func main(){
 	mux := http.NewServeMux()
 	mux.HandleFunc("/",ServeHTTP)
 	mux.HandleFunc("/details",ServeHTTPDetails)
-	fmt.Println("Starting HTTP server at port 8080.")
+	fmt.Println("Starting HTTP server on port 8080.")
 	http.ListenAndServe(":8080",mux)
 }
 
