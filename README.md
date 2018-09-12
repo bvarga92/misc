@@ -24,6 +24,7 @@
 - **mandelbrot.c**: Mandelbrot-halmaz megrajzolása PPM képfájlba
 - **mandelbrot_julia.ipynb**: Mandelbrot- és Julia-halmaz Pythonban, vektorosan
 - **morse.c**: Morse-kód visszafejtése bináris fa bejárásával
+- **mt_feladatok.m**: érdekesebb méréstechnikai feladatok megoldása és illusztrálása MATLAB-ban
 - **myping.c**: ping (ICMP echo üzenetváltás) alacsony szintû implementációja
 - **n_queens_backtrack.c**: N vezér elhelyezése az NxN-es sakktáblán rekurzív visszalépéses kereséssel
 - **ntp.go**: NTP-HTTP gateway Go nyelven
