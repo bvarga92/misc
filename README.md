@@ -4,6 +4,7 @@
 - **cardioid**: kardioid, nefroid és egyéb kausztikus görbék
 - **cpp11**: rövid összefoglaló a C++11 nyelv fontosabb újdonságairól
 - **epicycles**: komplex Fourier-transzformáció vizualizálása epiciklusokkal ([videó](https://www.youtube.com/watch?v=oOdTmJRVE5U&list=PL9_VlVdB8s882QMHiqJlDpJeKWxwP5CIG))
+- **file_date_changer**: segédprogram fájlok módosítási idejének átírásához
 - **java_minesweeper**: aknakeresõ játék Javában
 - **java_pong**: pingpong játék Javában
 - **moire**: interaktív MATLAB illusztráció a Moiré-jelenség keletkezéséhez
