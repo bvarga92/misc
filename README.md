@@ -13,6 +13,7 @@
 - **qft**: a kvantum Fourier-transzformáció bemutatása
 - **rubik**: Rubik-kocka kirakó program MATLAB és C nyeven, OpenCV alapú színfelismeréssel ([videó](https://www.youtube.com/watch?v=PGJQEivd0R0&list=PL9_VlVdB8s882QMHiqJlDpJeKWxwP5CIG))
 - **stegano**: szöveg elrejtése képfájlban (szteganográfia)
+- **windows_object_grabber**: segédprogram Windows applikációk vezérlõelemeinek módosítására
 - **avltree.c**: egyszerû bináris fa és önkiegyensúlyozó AVL-fa összehasonlítása
 - **bode_asymptotic.m**: folytonos idejû átviteli függvény törtvonalas közelítõ Bode-diagramjának megrajzolása
 - **conway.c**: Conway-féle sejtautomata
