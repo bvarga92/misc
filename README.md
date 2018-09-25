@@ -18,6 +18,7 @@
 - **bode_asymptotic.m**: folytonos idejû átviteli függvény törtvonalas közelítõ Bode-diagramjának megrajzolása
 - **conway.c**: Conway-féle sejtautomata
 - **ctest.py**: C kód tesztelése Pythonban
+- **fibonacci_flower.m**: Fibonacci-virágok elõállítása MATLAB-ban
 - **huffman.c**: szöveg karaktereinek Huffman-kódolása bináris fával
 - **keepawake.vbs**: billentyûleütéseket szimuláló szkript a PC ébren tartásához
 - **keylogger.c**: billentyûleütés-naplózó Windows alá (oktatási célra!)
