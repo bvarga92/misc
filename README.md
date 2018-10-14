@@ -8,6 +8,7 @@
 - **file_date_changer**: segédprogram fájlok módosítási idejének átírásához
 - **java_minesweeper**: aknakeresõ játék Javában
 - **java_pong**: pingpong játék Javában
+- **java_tictactoe**: amõba játék Javában
 - **moire**: interaktív MATLAB illusztráció a Moiré-jelenség keletkezéséhez
 - **numerical**: numerikus módszerek
 - **process_memory_changer**: segédeszköz futó programok memóriaterületének módosításához
