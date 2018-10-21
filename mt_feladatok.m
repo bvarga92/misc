@@ -77,6 +77,75 @@ pause;
 
 
 %% 3. feladat
+% Egy mért mennyiség kezdeti értéke 20, majd ezt követõen egytárolós egyponenciális jelleget követve fut fel.
+% A mért érték 10 másodperc elteltével 50, 20 másodperc elteltével pedig 60. Határozzuk meg a függvénykapcsolatot!
+% Megoldás:
+%      a függvény paraméteresen: x(t)=(x_sup-x0)*(1-exp(-t/tau))+x0
+%      a kezdeti értéket megadta a feladat: x0=20
+%      a maradék két ismeretlenre a következõ két egyenletet írhatjuk fel:
+%            50=(x_sup-20)*(1-exp(-10/tau))+20
+%            30=(x_sup-20)*(1-exp(-20/tau))+20
+%      átrendezve:
+%            30/(1-exp(-10/tau))=x_sup-20
+%            40/(1-exp(-20/tau))=x_sup-20
+%      a kettõt egyenlõvé téve:
+%            30/(1-exp(-10/tau))=40/(1-exp(-20/tau))
+%            30/(1-exp(-10/tau))-40/(1-exp(-20/tau))=0
+%      Egyismeretlenes egyenletet kaptunk tau-ra. Ez most analitikusan is megoldható (az a=exp(-10/tau) segédváltozó
+%      bevezetésével egyszerû másodfokú egyenletre vezet), de ez általánosan nem igaz. Alább a numerikus megoldás.
+
+clear all;
+close all;
+clc;
+
+format long;
+
+% ennek keressuk a zerushelyet
+f=@(tau) 30./(1-exp(-10./tau))-40./(1-exp(-20./tau));
+
+% keresunk egy-egy erteket, amire a fuggveny nagyobb ill. kisebb 0-nal --> a megoldas a ketto kozott lesz
+tau_min=7;   % f(7)=-2.9817
+tau_max=10;  % f(10)=1.1986
+
+% 1. lehetoseg: kiszamoljuk a fuggvenyt sok pontban, es megnezzuk, hol volt a legkozelebb 0-hoz
+tau_test=linspace(tau_min,tau_max,10000);
+[m,idx]=min(abs((f(tau_test))));
+tau1=tau_test(idx)
+
+% 2. lehetoseg: beepitett fuggveny hasznalata
+tau2=fsolve(f,(tau_min+tau_max)/2,optimset('Display','off'))
+
+% 3. lehetoseg: valami iterativ modszer, pl. bisection method
+L=tau_min;
+H=tau_max;
+for ii=1:10000
+    tau3=(L+H)/2;
+    if abs(f(tau3))<eps % gyakorlatilag 0 --> kesz vagyunk
+        break;
+    elseif f(tau3)<0    % negativ --> a felso felintervallumban keresunk tovabb
+        L=tau3;
+    else                % pozitiv --> az also felintervallumban keresunk tovabb
+        H=tau3;
+    end
+end
+tau3
+
+% visszaszamoljuk a szupremumot
+x_sup=30/(1-exp(-10/tau3))+20
+
+% abrazoljuk a fuggvenyt
+t=linspace(0,50,1000);
+figure(1);
+plot(t,(x_sup-20)*(1-exp(-t/tau3))+20);
+xlabel('t [s]');
+ylabel('x [\circC]');
+grid on;
+
+format short;
+pause;
+
+
+%% 4. feladat
 % A megadott adatsor a Budapesten regisztrált havas napok számát tartalmazza évenként 1901. és 2000. között.
 % a) Szignifikánsan kevesebb havas nap volt-e 1994-ben Budapesten, mint a korábbi években (1901. óta)?
 %    Az eltérést szignifikánsnak tekintjük, ha p=5%-nál kisebb a valószínûsége egy legalább ekkora eltérésnek.
@@ -84,9 +153,9 @@ pause;
 % c) Szignifikánsan kevesebb havas nap volt-e a 20. század utolsó évtizedében Budapesten, mint az 50-es években?
 % d) Illessz polinomot a mérési adatokra!
 
-clc;
-close all;
 clear all;
+close all;
+clc;
 
 data=[1901,31;1902,30;1903,18;1904,33;1905,34;1906,44;1907,43;1908,44;1909,35;1910,28;1911,31;1912,26;1913,42;1914,24;1915,40;
 1916,19;1917,49;1918,37;1919,52;1920,29;1921,26;1922,29;1923,36;1924,38;1925,31;1926,23;1927,33;1928,40;1929,42;1930,27;
@@ -170,7 +239,7 @@ p=X\y
 pause;
 
 
-%% 4. feladat
+%% 5. feladat
 % Egy laborban szinuszos jelbõl 10000 mintát veszünk. A mért regisztrátumon
 % DFT-t végzünk, melyet kirajzolva várakozásainknak megfelelõen két csúcs
 % látszik, az elsõ a 2001. pontban. Ezután megismételjük a mérést ugyanarra
@@ -220,7 +289,7 @@ ylabel('|X_2(f)| [dB]');
 pause;
 
 
-%% 5. feladat
+%% 6. feladat
 % Egy véletlen realizációjú folyamat az alábbi alakban adható meg:
 % x(t)=exp(-a*t^2), ahol az a paraméter egyenletes eloszlású a [0...1]
 % intervallumon. Határozd meg a folyamat autokorrelációs függvényét és
@@ -272,7 +341,7 @@ title('R_x(t,\tau)');
 pause;
 
 
-%% 6. feladat
+%% 7. feladat
 % Egy diszkrét rendszerbe, amelyben a mintavételi frekvencia fs, IIR
 % aluláteresztõ szûrõt tervezünk. A szûrõt úgy ellenõrizzük, hogy
 % generálunk egy fs/64 és egy fs/16 frekvenciájú, 256 mintából álló
@@ -339,7 +408,7 @@ ylabel('|X_{f2}(f)| [dB]');
 pause;
 
 
-%% 7. feladat
+%% 8. feladat
 % Egy zajos szinuszos jel mintáiból N=1000 pontos X(f) DFT-t és ez alapján
 % |X(f)|^2 teljesítménysûrûség-spektrumot készítve a szinuszos komponens
 % csúcsa P0=15 dB-nél, az átlagos zajszint pedig Pn=-5 dB-nél látható.
@@ -380,7 +449,7 @@ end
 pause;
 
 
-%% 8. feladat
+%% 9. feladat
 % Szinuszos jelbõl mintákat veszünk, a jel effektív értékét pedig úgy
 % számítjuk ki, hogy a mintákat négyzetre emeljük, majd a négyzetre emelt
 % mintákat átlagoljuk, végül az átlagból gyököt vonunk. Az eljárás nagyon
@@ -431,7 +500,7 @@ end
 pause;
 
 
-%% 9. feladat
+%% 10. feladat
 % Egy y jel eloszlása egyenletes a [0...q] tartományban. Feladatunk a q
 % paraméter meghatározása, amelyet a jelbõl vett N db. minta segítségével
 % becslünk. A mintákból lehetõségünk van az átlag (mu) és a maximum (M)
@@ -484,7 +553,7 @@ title('q_M eloszlasa');
 pause;
 
 
-%% 10. feladat
+%% 11. feladat
 % Az inharmonikus zongorahúr felhangjainak frekvenciái a következõ
 % képlettel írhatók le: fk=k*f0*sqrt(1+B*k^2), ahol k=[1...K] a felhang
 % száma, f0 az alapfrekvencia, B pedig az inharmonicitási együttható. A
