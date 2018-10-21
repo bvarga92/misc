@@ -77,7 +77,7 @@ pause;
 
 
 %% 3. feladat
-% Egy mért mennyiség kezdeti értéke 20, majd ezt követõen egytárolós egyponenciális jelleget követve fut fel.
+% Egy mért mennyiség kezdeti értéke 20, majd ezt követõen egytárolós exponenciális jelleget követve fut fel.
 % A mért érték 10 másodperc elteltével 50, 20 másodperc elteltével pedig 60. Határozzuk meg a függvénykapcsolatot!
 % Megoldás:
 %      a függvény paraméteresen: x(t)=(x_sup-x0)*(1-exp(-t/tau))+x0
