@@ -40,6 +40,7 @@
 - **opt_simulated_annealing.m**: optimalizáció szimulált lehûtéssel
 - **python3_snippets.ipynb**: érdekes Python 3 kódrészletek
 - **rollingshutter.m**: soronkénti letapogatást végzõ fényképezõgépek által okozott torzítás illusztrálása
+- **run_on_change.py**: Python segédprogram automatikus fordításhoz
 - **search_sort.c**: néhány keresési és rendezési algoritmus
 - **taylor_series.m**: tetszõleges függvény Taylor-soros közelítésének számítása és ábrázolása
 - **weather.c**, **weather.go** és **weather.ipynb**: OpenWeatherMap API használata (C, Go és Python példa)
