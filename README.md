@@ -16,6 +16,7 @@
 - **ptrace_demo**: példák a ptrace használatára (csak x64)
 - **qft**: a kvantum Fourier-transzformáció bemutatása
 - **rubik**: Rubik-kocka kirakó program MATLAB és C nyeven, OpenCV alapú színfelismeréssel ([videó](https://www.youtube.com/watch?v=PGJQEivd0R0&list=PL9_VlVdB8s882QMHiqJlDpJeKWxwP5CIG))
+- **screen_change_alarm**: segédprogram, amely hangjelzést ad, ha egy képernyõ tartalma megváltozik
 - **screen_shuffle**: a képernyõ tartalmát összekeverõ "képernyõvédõ"
 - **screen_zoom**: képernyõ nagyító és színelemzõ segédprogram
 - **stegano**: szöveg elrejtése képfájlban (szteganográfia)
