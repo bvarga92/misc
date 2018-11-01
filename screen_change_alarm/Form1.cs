@@ -119,7 +119,7 @@ namespace ScreenChangeAlarm
             g.Dispose();
             /* hash szamitasa */
             System.Drawing.ImageConverter ic = new System.Drawing.ImageConverter();
-            byte[] bytes = bytes = (byte[])ic.ConvertTo(bmp, typeof(byte[]));
+            byte[] bytes = (byte[])ic.ConvertTo(bmp, typeof(byte[]));
             SHA256Managed sha = new SHA256Managed();
             byte[] hash = sha.ComputeHash(bytes);
             /* osszehasonlitas */
