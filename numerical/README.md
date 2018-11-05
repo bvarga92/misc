@@ -1,6 +1,8 @@
 # Numerikus módszerek
 
 - **fem_waveguide**: végeselemes szimuláció az elektromágneses hullám csõtápvonalban való terjedésére  ([videó](https://www.youtube.com/watch?v=mLOpLBptPcE&list=PL9_VlVdB8s882QMHiqJlDpJeKWxwP5CIG))
+- **cml_boiling.m**: folyadék forrásának Coupled Map Lattice alapú szimulációja (Yanagita-modell)
+- **cml_sound.m**: hangszintézis egydimenziós Coupled Map Lattice segítségével
 - **fdm_brusselator.m**: Turing-mintázatok képzõdése reakció-diffúzió rendszerben
 - **fdm_drum_circ.m**: kör alakú membrán rezgésének szimulációja végesdifferencia-módszerrel, hengerkoordinátákkal
 - **fdm_drum_rect.m**: téglalap alakú membrán rezgésének szimulációja végesdifferencia-módszerrel
@@ -15,7 +17,13 @@
 - **rungekutta_celestial1.m**: kis tömegû égitest keringésének szimulációja
 - **rungekutta_celestial2.m**: két égitest csatolt mozgásának szimulációja
 - **rungekutta_celestial3.m**: három égitest csatolt mozgásának szimulációja
-- **rungekutta_euler_double_pendulum.m**: kettõs inga szimulációja Runge-Kutta- és Euler-módszerrel
-- **rungekutta_euler_pendulum.m**: matematikai inga szimulációja Runge-Kutta- és Euler-módszerrel
-- **rungekutta_euler_spring_pendulum.m**: rugóval csatolt ingák  szimulációja Runge-Kutta- és Euler-módszerrel
-- **rungekutta_general.m**: negyedrendû Runge-Kutta-módszer általános, vektoros implementációja
+- **rungekutta_euler_double_pendulum.m**: kettõs inga szimulációja Runge–Kutta- és Euler-módszerrel
+- **rungekutta_euler_pendulum.m**: matematikai inga szimulációja Runge–Kutta- és Euler-módszerrel
+- **rungekutta_euler_spring_pendulum.m**: rugóval csatolt ingák  szimulációja Runge–Kutta- és Euler-módszerrel
+- **rungekutta_general.m**: negyedrendû Runge–Kutta-módszer általános, vektoros implementációja
+- **rungekutta_van_der_pol.m**: Van der Pol-oszcillátor modellezése Runge–Kutta-módszerrel
+
+
+
+
+
