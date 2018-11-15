@@ -46,7 +46,7 @@
 }
 \lstdefinestyle{SHELL_SCRIPT}{
 	sensitive=true,
-	morekeywords={echo, for, in, do, done, while, until, continue, break, if, then, fi, case, esac, find, cut, sh, ls, wc, mv, grep, read, sed},
+	morekeywords={echo, for, in, do, done, while, until, continue, break, if, then, else, fi, case, esac, find, cut, sh, ls, wc, mv, grep, read, sed},
 	morecomment=[l]{\#},
 	morestring=[b]`,
 	keywordstyle=\color[rgb]{0,0,1},
@@ -245,6 +245,37 @@ do
 	n=$((n+1))
 	mv -i "$file" "${n}_${file}"
 done
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\item \textbf{Modify CODE.TXT so that each line is terminated with a semicolon. Ignore blank lines and lines that are already terminated.}
+
+\begin{lstlisting}
+#!/bin/bash
+
+sed "/^\s*$/b ; /;\s*$/b ; s/\s*$/;/g" -i CODE.TXT
+\end{lstlisting}
+
+\clearpage
+
+Different solution:
+
+\begin{lstlisting}
+#!/bin/bash
+
+file=CODE.TXT
+tempfile=CODE.TXT2
+while read line
+do
+	if echo $line | grep -q "^\s*$\|;\s*$"
+	then
+		echo $line
+	else
+		echo "${line//[$'\t\r\n']/;}"
+	fi
+done < $file > $tempfile
+mv $tempfile $file
 \end{lstlisting}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
