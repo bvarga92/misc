@@ -21,7 +21,7 @@
 - **screen_zoom**: képernyõ nagyító és színelemzõ segédprogram
 - **stegano**: szöveg elrejtése képfájlban (szteganográfia)
 - **windows_object_grabber**: segédprogram Windows applikációk vezérlõelemeinek módosítására
-- **aes.py**: AES kódolás impementációja Pythonban
+- **aes.py**: AES kódolás implementációja Pythonban
 - **avltree.c**: egyszerû bináris fa és önkiegyensúlyozó AVL-fa összehasonlítása
 - **bode_asymptotic.m**: folytonos idejû átviteli függvény törtvonalas közelítõ Bode-diagramjának megrajzolása
 - **conway.c**: Conway-féle sejtautomata
