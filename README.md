@@ -20,6 +20,7 @@
 - **screen_shuffle**: a képernyõ tartalmát összekeverõ "képernyõvédõ"
 - **screen_zoom**: képernyõ nagyító és színelemzõ segédprogram
 - **stegano**: szöveg elrejtése képfájlban (szteganográfia)
+- **wcca**: worst-case áramköranalízis MATLAB és LTspice segítségével
 - **windows_object_grabber**: segédprogram Windows applikációk vezérlõelemeinek módosítására
 - **aes.py**: AES kódolás implementációja Pythonban
 - **avltree.c**: egyszerû bináris fa és önkiegyensúlyozó AVL-fa összehasonlítása
