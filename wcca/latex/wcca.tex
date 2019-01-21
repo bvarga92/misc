@@ -121,7 +121,8 @@ C1n=1e-9; C1tol=0.05;
 C2n=2e-9; C2tol=0.05;
 
 %% szimulacio
-Uki=zeros(length(f),3);
+mag=zeros(length(f),3);
+phase=zeros(length(f),3);
 for ii=1:length(f)
     for jj=1:2^N+1
         if jj==2^N+1
@@ -142,21 +143,31 @@ for ii=1:length(f)
         B=[Ube/R1 ; 0];
         x=A\B;
         if jj==1
-            Uki(ii,1)=x(2);
-            Uki(ii,3)=x(2);
+            mag(ii,1)=abs(x(2));
+            mag(ii,3)=abs(x(2));
         elseif jj==17
-            Uki(ii,2)=x(2);
-        elseif abs(x(2))<abs(Uki(ii,1))
-            Uki(ii,1)=x(2);
-        elseif abs(x(2))>abs(Uki(ii,3))
-            Uki(ii,3)=x(2);
+            mag(ii,2)=abs(x(2));
+        elseif abs(x(2))<mag(ii,1)
+            mag(ii,1)=abs(x(2));
+        elseif abs(x(2))>mag(ii,3)
+            mag(ii,3)=abs(x(2));
+        end
+        if jj==1
+            phase(ii,1)=angle(x(2));
+            phase(ii,3)=angle(x(2));
+        elseif jj==17
+            phase(ii,2)=angle(x(2));
+        elseif angle(x(2))<phase(ii,1)
+            phase(ii,1)=angle(x(2));
+        elseif angle(x(2))>phase(ii,3)
+            phase(ii,3)=angle(x(2));
         end
     end
 end
+phase=unwrap(phase)*180/pi;
 
 %% abrazolas
 figure(1);
-mag=abs(Uki);
 subplot(211);
 fill([f f(end:-1:1)],[mag(:,3)' mag(end:-1:1,1)'],[0.59 0.59 0.78],'LineStyle','none');
 hold on;
@@ -167,7 +178,6 @@ set(h,{'color'},{'k';'r';'k'});
 xlabel('f [Hz]');
 ylabel('|H(f)|');
 subplot(212);
-phase=unwrap(angle(Uki))*180/pi;
 fill([f f(end:-1:1)],[phase(:,3)' phase(end:-1:1,1)'],[0.59 0.59 0.78],'LineStyle','none');
 hold on;
 h=plot(f,phase);
@@ -178,7 +188,7 @@ xlabel('f [Hz]');
 ylabel('\phi(f) [\circ]');
 \end{lstlisting}
 
-\clearpage
+\vspace{5mm}
 
 {\centering\huge Kimenet\\}
 
