@@ -594,3 +594,59 @@ v=pinv([k.^2 k.^4])*(fk.^2);
 B_est2=v(2)/v(1);
 f0_est2=sqrt(v(1));
 fprintf('f0_est2=%.1f (hiba %.1f%%), B_est2=%.4f (hiba %.1f%%).\n\n',f0_est2,(f0_est2-f0)/f0*100,B_est2,(B_est2-B)/B*100);
+
+pause;
+
+
+%% 12. feladat
+% Pi értékét szeretnénk meghatározni Monte Carlo módszerrel: egy 2
+% egységnyi oldalú négyzet belsejébe egyenletes eloszlással szétszórunk sok
+% pontot, majd megszámoljuk, hogy a pontok közül hány darab esett a
+% négyzetbe írható egységsugarú kör belsejébe. Végezzünk kísérletet pi
+% adott konfidenciaszintû meghatározására!
+% Megoldás:
+%     - legyen I indikátorváltozó: 1, ha a pont a körbe esett, különben 0
+%     - I várható értéke a területek aránya, azaz pi/4
+%     - I második momentuma: pi/4*1^2+(1-pi/4)*0^2=pi/4
+%     - I varianciája: pi/4-(pi/4)^2=pi/4*(1-pi/4)
+%     - egy kísérlet szórása: sqrt(pi/4*(1-pi/4))*4/sqrt(pontok száma)
+%     - A feladat jó illusztrációja a konfidenciaintervallum jelentésének.
+%       Természetesen olyasmit nem írhatunk le, hogy P(3<pi<4)=95%, hiszen
+%       pi nem valószínûségi változó, hanem egy konkrét szám, ami vagy
+%       benne van a meghatározott intervallumban, vagy nincs. A
+%       konfidenciaintervallum azt jelenti, hogy ha a kísérleteket sokszor
+%       elvégezzük, és mindbõl számolunk egy-egy intervallumot, akkor pi
+%       nagyjából a konfidenciaszintnek megfelelõ gyakorisággal fog
+%       beleesni ezekbe az intervallumokba.
+
+clear all;
+close all;
+clc;
+
+N=1e3; % egy kiserletben szetszort pontok szama
+n=1e3; % kiserletek szama
+k=100; % "szuperkiserletek" szama
+conf_percent=20; % konfidenciaszint szazalekban
+
+sigma=sqrt(pi/4*(1-pi/4))*4/sqrt(N); % egy kiserlet szorasa
+z=-norminv((100-conf_percent)/200);  % z-ertek
+d=sigma*z/sqrt(n); % konfidenciaintervallum szelessege
+
+rng('shuffle');
+bounds=zeros(k,2); % intervallumhatarok
+str=[];
+for ii=1:k
+    x=zeros(n,1);
+    for jj=1:n
+        px=2*rand(N,1)-1;
+        py=2*rand(N,1)-1;
+        x(jj)=sum(px.^2+py.^2<=1)*4/N;
+    end
+    bounds(ii,:)=[mean(x)-d   mean(x)+d];
+    fprintf(repmat('\b',1,length(str)));
+    str=sprintf('%d / %d\n',ii,k);
+    fprintf(str);
+end
+
+numTrue=sum(bounds(:,1)<=pi & bounds(:,2)>=pi)/k*100;
+fprintf('Az esetek %.2f%%-aban volt benne pi a\nkonfidenciaintervallumban.\n\n',numTrue);
