@@ -1,5 +1,7 @@
 # Numerikus módszerek
 
+- **fem_heat**: egyszerû kétdimenziós hõvezetési probléma végeselemes szimulációja
+- **fem_membrane**: széleinél rögzített, kör alakú membrán rezgésének végeselemes szimulációja
 - **fem_waveguide**: végeselemes szimuláció az elektromágneses hullám csõtápvonalban való terjedésére  ([videó](https://www.youtube.com/watch?v=mLOpLBptPcE&list=PL9_VlVdB8s882QMHiqJlDpJeKWxwP5CIG))
 - **cml_boiling.m**: folyadék forrásának Coupled Map Lattice alapú szimulációja (Yanagita-modell)
 - **cml_sound.m**: hangszintézis egydimenziós Coupled Map Lattice segítségével
@@ -21,9 +23,5 @@
 - **rungekutta_euler_pendulum.m**: matematikai inga szimulációja Runge–Kutta- és Euler-módszerrel
 - **rungekutta_euler_spring_pendulum.m**: rugóval csatolt ingák  szimulációja Runge–Kutta- és Euler-módszerrel
 - **rungekutta_general.m**: negyedrendû Runge–Kutta-módszer általános, vektoros implementációja
+- **rungekutta_rossler.m**: Rössler-attraktor szimulációja Runge–Kutta-módszerrel
 - **rungekutta_van_der_pol.m**: Van der Pol-oszcillátor modellezése Runge–Kutta-módszerrel
-
-
-
-
-
