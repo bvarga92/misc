@@ -16,11 +16,11 @@ geom=decsg([R1,R2], 'R1-R2', ['R1';'R2']');
 p=jigglemesh(p,e,t);
 
 %% peremfeltetelek
-ne=size(e,2); % number of edges
+ne=size(e,2);
 qmatrix=zeros(1,ne);
-gmatrix=qmatrix;
+gmatrix=zeros(1,ne);
 hmatrix=zeros(1,2*ne);
-rmatrix=hmatrix;
+rmatrix=zeros(1,2*ne);
 for k=1:ne
     switch e(5,k)
         case {1,2,6,7} % kulso perem: Dirichlet, 25 fok
