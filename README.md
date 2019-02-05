@@ -29,6 +29,7 @@
 - **ctest.py**: C kód tesztelése Pythonban
 - **decipher_caesar.m**: Caesar-kód statisztikai alapú feltörése
 - **decipher_substitution.m**: helyettesítéses kód statisztikai alapú feltörése
+- **extractDataFromFig.m**: adat kinyerése MATLAB .fig fájlból
 - **fibonacci_flower.m**: Fibonacci-virágok elõállítása MATLAB-ban
 - **huffman.c**: szöveg karaktereinek Huffman-kódolása bináris fával
 - **keepawake.vbs**: billentyûleütéseket szimuláló szkript a PC ébren tartásához
