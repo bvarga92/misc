@@ -16,7 +16,7 @@ h=get(hw,'Parent');
 set(h,'Renderer','zbuffer','Position',[400 100 800 800]);
 F=moviein(size(u,2),h);
 for ii=1:size(u,2)
-    pdeplot(p,e,t,'xydata',u(:,ii),'mesh','off');
+    pdeplot(p,e,t,'xydata',u(:,ii),'mesh','off','colorbar','on');
     colormap(jet);
     caxis([min(min(u)) max(max(u))]);
     axis equal off;
