@@ -1,5 +1,6 @@
 # Numerikus módszerek
 
+- **fem_comsol**: peremértékfeladatok megoldása COMSOL Multiphysics segítségével
 - **fem_pdetool**: peremértékfeladatok megoldása MATLAB PDE Toolbox segítségével
 - **cml_boiling.m**: folyadék forrásának Coupled Map Lattice alapú szimulációja (Yanagita-modell)
 - **cml_sound.m**: hangszintézis egydimenziós Coupled Map Lattice segítségével
