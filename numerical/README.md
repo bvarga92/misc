@@ -1,6 +1,6 @@
 # Numerikus módszerek
 
-- **fem_pdetool**: Peremértékfeladatok megoldása MATLAB PDE Toolbox segítségével
+- **fem_pdetool**: peremértékfeladatok megoldása MATLAB PDE Toolbox segítségével
 - **cml_boiling.m**: folyadék forrásának Coupled Map Lattice alapú szimulációja (Yanagita-modell)
 - **cml_sound.m**: hangszintézis egydimenziós Coupled Map Lattice segítségével
 - **fdm_brusselator.m**: Turing-mintázatok képzõdése reakció-diffúzió rendszerben

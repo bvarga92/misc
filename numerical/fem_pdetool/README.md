@@ -1,4 +1,4 @@
-# Peremértékfeladatok megoldása MATLAB PDE Toolbox segítségével
+# Peremértékfeladatok megoldása PDE Toolbox segítségével
 
 - **heat**: egyszerû kétdimenziós hõvezetési probléma végeselemes szimulációja
 - **membrane**: széleinél rögzített, kör alakú membrán rezgésének végeselemes szimulációja
