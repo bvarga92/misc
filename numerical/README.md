@@ -1,9 +1,6 @@
 # Numerikus módszerek
 
-- **fem_heat**: egyszerû kétdimenziós hõvezetési probléma végeselemes szimulációja
-- **fem_membrane**: széleinél rögzített, kör alakú membrán rezgésének végeselemes szimulációja
-- **fem_pcb_eigenmodes**: nyomtatott áramköri hordozón kialakuló rezgésmódusok meghatározása
-- **fem_waveguide**: végeselemes szimuláció az elektromágneses hullám csõtápvonalban való terjedésére  ([videó](https://www.youtube.com/watch?v=mLOpLBptPcE&list=PL9_VlVdB8s882QMHiqJlDpJeKWxwP5CIG))
+- **fem_pdetool**: Peremértékfeladatok megoldása MATLAB PDE Toolbox segítségével
 - **cml_boiling.m**: folyadék forrásának Coupled Map Lattice alapú szimulációja (Yanagita-modell)
 - **cml_sound.m**: hangszintézis egydimenziós Coupled Map Lattice segítségével
 - **fdm_brusselator.m**: Turing-mintázatok képzõdése reakció-diffúzió rendszerben
