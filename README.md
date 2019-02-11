@@ -43,6 +43,7 @@
 - **myping.c**: ping (ICMP echo üzenetváltás) alacsony szintû implementációja
 - **n_queens_backtrack.c**: N vezér elhelyezése az NxN-es sakktáblán rekurzív visszalépéses kereséssel
 - **ntp.go**: NTP-HTTP gateway Go nyelven
+- **opt_differential_evolution.m**: optimalizáció differential evolution algoritmussal
 - **opt_particle_swarm.m**: optimalizáció particle swarm algoritmussal
 - **opt_simulated_annealing.m**: optimalizáció szimulált lehûtéssel
 - **python3_snippets.ipynb**: érdekes Python 3 kódrészletek
