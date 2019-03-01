@@ -595,6 +595,30 @@ B_est2=v(2)/v(1);
 f0_est2=sqrt(v(1));
 fprintf('f0_est2=%.1f (hiba %.1f%%), B_est2=%.4f (hiba %.1f%%).\n\n',f0_est2,(f0_est2-f0)/f0*100,B_est2,(B_est2-B)/B*100);
 
+% Manuális Maximum Likelihood becslés
+likelihood=@(f0,B) 1/sqrt(2*pi*sigma^2)^K*exp(-1/2/sigma^2*sum((fk-k*f0.*sqrt(1+B*k.^2)).^2)); % likelihood függvény
+log_likelihood=@(f0,B) -K/2*log(2*pi*sigma^2)-1/2/sigma^2*sum((fk-k*f0.*sqrt(1+B*k.^2)).^2); % log-likelihood függvény
+[f0space,Bspace]=meshgrid(fk(1)+linspace(-70,30,1000), linspace(0.08,0.12,1000));
+L=zeros(size(f0space));
+logL=zeros(size(f0space));
+for ii=1:size(f0space,1)
+    for jj=1:size(f0space,2)
+        L(ii,jj)=likelihood(f0space(ii,jj),Bspace(ii,jj));
+        logL(ii,jj)=log_likelihood(f0space(ii,jj),Bspace(ii,jj));
+    end
+end
+m=max(max(L));
+[mf0,mB]=find(L==m);
+figure(1);
+imagesc(f0space(1,:),Bspace(:,1),L);
+set(gca,'YDir','normal');
+xlabel('f_0');
+ylabel('B');
+title('Likelihood');
+B_est3=Bspace(mB,1);
+f0_est3=f0space(1,mf0);
+fprintf('f0_est3=%.1f (hiba %.1f%%), B_est3=%.4f (hiba %.1f%%).\n\n',f0_est3,(f0_est3-f0)/f0*100,B_est3,(B_est3-B)/B*100);
+
 pause;
 
 
