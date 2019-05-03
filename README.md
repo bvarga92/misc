@@ -3,6 +3,7 @@
 - **arbitrary_precision_arithmetic**: tetszõlegesen nagy egész számokat kezelõ aritmetikai könyvtár
 - **bash_examples**: bash script feladatok megoldásokkal
 - **cardioid**: kardioid, nefroid és egyéb kausztikus görbék
+- **chromedata_collect**: Google Chrome által tárolt jelszavak és egyéb adatok kiolvasása
 - **cpp11**: rövid összefoglaló a C++11 nyelv fontosabb újdonságairól
 - **epicycles**: komplex Fourier-transzformáció vizualizálása epiciklusokkal ([videó](https://www.youtube.com/watch?v=oOdTmJRVE5U&list=PL9_VlVdB8s882QMHiqJlDpJeKWxwP5CIG))
 - **eyes**: kurzort követõ szemek
