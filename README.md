@@ -1,6 +1,7 @@
 # Vegyes forráskódok
 
 - **arbitrary_precision_arithmetic**: tetszõlegesen nagy egész számokat kezelõ aritmetikai könyvtár
+- **backtrack**: példák visszalépéses keresésre
 - **bash_examples**: bash script feladatok megoldásokkal
 - **cardioid**: kardioid, nefroid és egyéb kausztikus görbék
 - **chromedata_collect**: Google Chrome által tárolt jelszavak és egyéb adatok kiolvasása
@@ -35,14 +36,11 @@
 - **huffman.c**: szöveg karaktereinek Huffman-kódolása bináris fával
 - **keepawake.vbs**: billentyûleütéseket szimuláló szkript a PC ébren tartásához
 - **keylogger.c**: billentyûleütés-naplózó Windows alá (oktatási célra!)
-- **knight_nonrecursive.c**: sakktábla két mezeje közötti lóugrás-út keresése nonrekurzív backtrack algoritmussal
-- **knight_recursive.c**: sakktábla két mezeje közötti lóugrás-út keresése rekurzív backtrack algoritmussal
 - **mandelbrot.c**: Mandelbrot-halmaz megrajzolása PPM képfájlba
 - **mandelbrot_julia.ipynb**: Mandelbrot- és Julia-halmaz Pythonban, vektorosan
 - **morse.c**: Morse-kód visszafejtése bináris fa bejárásával
 - **mt_feladatok.m**: érdekesebb méréstechnikai feladatok megoldása és illusztrálása MATLAB-ban
 - **myping.c**: ping (ICMP echo üzenetváltás) alacsony szintû implementációja
-- **n_queens_backtrack.c**: N vezér elhelyezése az NxN-es sakktáblán rekurzív visszalépéses kereséssel
 - **ntp.go**: NTP-HTTP gateway Go nyelven
 - **opt_differential_evolution.m**: optimalizáció differential evolution algoritmussal
 - **opt_particle_swarm.m**: optimalizáció particle swarm algoritmussal
