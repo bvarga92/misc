@@ -12,6 +12,7 @@
 - **java_minesweeper**: aknakeresõ játék Javában
 - **java_pong**: pingpong játék Javában
 - **java_tictactoe**: amõba játék Javában
+- **javascript_set**: Set játék JavaScriptben ([próba](http://home.sch.bme.hu/~bvarga92/upload/set/))
 - **moire**: interaktív MATLAB illusztráció a Moiré-jelenség keletkezéséhez
 - **numerical**: numerikus módszerek
 - **process_memory_changer**: segédeszköz futó programok memóriaterületének módosításához
@@ -33,6 +34,7 @@
 - **decipher_substitution.m**: helyettesítéses kód statisztikai alapú feltörése
 - **extractDataFromFig.m**: adat kinyerése MATLAB .fig fájlból
 - **fibonacci_flower.m**: Fibonacci-virágok elõállítása MATLAB-ban
+- **function_from_image.ipynb**: grafikonnal megadott függvény interpolációja
 - **huffman.c**: szöveg karaktereinek Huffman-kódolása bináris fával
 - **keepawake.vbs**: billentyûleütéseket szimuláló szkript a PC ébren tartásához
 - **keylogger.c**: billentyûleütés-naplózó Windows alá (oktatási célra!)
