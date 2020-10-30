@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function key(e){
+	if(e.keyCode == 32){
+		 document.getElementById("dot").style.visibility = "visible";
+		 document.getElementById("dot").style.top = (10 + Math.floor(Math.random() * 80)).toString() + "%";
+		 document.getElementById("dot").style.left = (10 + Math.floor(Math.random() * 80)).toString() + "%";
+	}
+}
+
+function clk(){
+	document.getElementById("dot").style.visibility = "hidden";
+}
+</script>
+<style>
+#dot{
+	height: 75px;
+	width: 75px;
+	background-color: #b00;
+	border-radius: 50%;
+	display: inline-block;
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	text-align: center;
+	visibility: hidden;
+} 
+</style>
+</head>
+<body onkeypress="key(event);">
+
+<span id="dot" onclick="clk();"></span>
+
+</body>
+</html>
