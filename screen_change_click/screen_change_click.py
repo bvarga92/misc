@@ -31,7 +31,7 @@ with mss.mss() as sct:
                 currentX, currentY = pyautogui.position()
                 targetX, targetY = 100, 100
                 stepX, stepY = (centerX - currentX) / MOVE_STEPS, (centerY - currentY) / MOVE_STEPS
-                for _ in range(MOVE_STEPS):
+                for _ in range(1, MOVE_STEPS + 1):
                     pyautogui.move(stepX, stepY)
                 time.sleep(0.5);
                 pyautogui.click()
