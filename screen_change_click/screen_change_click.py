@@ -6,6 +6,7 @@ import pyautogui
 
 COUNTDOWN_FROM = 5
 NUM_PIXELS = 2000
+DO_BEEP = True
 MOVE_STEPS = 10
 PAUSE_AFTER_EVENT = 5
 
@@ -21,6 +22,8 @@ with mss.mss() as sct:
             diff = cv2.absdiff(img, img_prev)
             _, thresh = cv2.threshold(diff, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
             if (thresh == 0).sum() > NUM_PIXELS:
+                if DO_BEEP:
+                    print('\a')
                 contours, _ = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
                 centerX = np.mean([c[0][0] for c in contours[1]])
                 centerY = np.mean([c[0][1] for c in contours[1]])
