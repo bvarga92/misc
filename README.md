@@ -35,6 +35,7 @@
 - **decipher_substitution.m**: helyettesítéses kód statisztikai alapú feltörése
 - **extractDataFromFig.m**: adat kinyerése MATLAB .fig fájlból
 - **fibonacci_flower.m**: Fibonacci-virágok elõállítása MATLAB-ban
+- **find_videos_with_same_duration.py**: azonos hosszúságú videók keresése
 - **function_from_image.ipynb**: grafikonnal megadott függvény interpolációja
 - **huffman.c**: szöveg karaktereinek Huffman-kódolása bináris fával
 - **keepawake.vbs**: billentyûleütéseket szimuláló szkript a PC ébren tartásához
