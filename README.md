@@ -1,5 +1,6 @@
 # Vegyes forráskódok
 
+- **alkatresz_adatbazis**: elektronikai alkatrészek nyilvántartása
 - **arbitrary_precision_arithmetic**: tetszõlegesen nagy egész számokat kezelõ aritmetikai könyvtár
 - **backtrack**: példák visszalépéses keresésre
 - **bash_examples**: bash script feladatok megoldásokkal
