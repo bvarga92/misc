@@ -28,6 +28,7 @@
 - **wcca**: worst-case áramköranalízis MATLAB és LTspice segítségével
 - **windows_object_grabber**: segédprogram Windows applikációk vezérlõelemeinek módosítására
 - **aes.py**: AES kódolás implementációja Pythonban
+- **archive_images_to_xlsx.py**: mappában található összes kép archiválása Excel táblába
 - **avltree.c**: egyszerû bináris fa és önkiegyensúlyozó AVL-fa összehasonlítása
 - **bode_asymptotic.m**: folytonos idejû átviteli függvény törtvonalas közelítõ Bode-diagramjának megrajzolása
 - **conway.c**: Conway-féle sejtautomata
